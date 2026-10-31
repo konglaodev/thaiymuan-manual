@@ -1,0 +1,2376 @@
+<!doctype html>
+<html lang="lo" data-ui="lo">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ຄູ່ມື Thaiymuan Production</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f5f1;
+  --surface: #ffffff;
+  --surface-2: #f0ede6;
+  --text: #1d1b18;
+  --muted: #6b665d;
+  --border: #e2ddd3;
+  --accent: #b4532a;
+  --accent-soft: #f6e6dc;
+  --code-bg: #f3f0ea;
+  --tip: #2f6f4f;
+  --tip-soft: #e3f1e9;
+  --warn: #9a5b00;
+  --warn-soft: #fbf0d9;
+  --danger: #a3302a;
+  --danger-soft: #f8e1df;
+  --live: #2e9d5b;
+  --shadow: 0 1px 2px rgba(30, 25, 15, .05), 0 4px 16px rgba(30, 25, 15, .05);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151412;
+    --surface: #1e1c1a;
+    --surface-2: #26241f;
+    --text: #ece8e1;
+    --muted: #a39d92;
+    --border: #35322c;
+    --accent: #e58a5c;
+    --accent-soft: #3a261b;
+    --code-bg: #26241f;
+    --tip: #7fcfa3;
+    --tip-soft: #1c2e24;
+    --warn: #e9b65a;
+    --warn-soft: #33281468;
+    --danger: #f08a83;
+    --danger-soft: #3a1f1d;
+    --live: #5fd08e;
+    --shadow: none;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151412;
+  --surface: #1e1c1a;
+  --surface-2: #26241f;
+  --text: #ece8e1;
+  --muted: #a39d92;
+  --border: #35322c;
+  --accent: #e58a5c;
+  --accent-soft: #3a261b;
+  --code-bg: #26241f;
+  --tip: #7fcfa3;
+  --tip-soft: #1c2e24;
+  --warn: #e9b65a;
+  --warn-soft: #33281468;
+  --danger: #f08a83;
+  --danger-soft: #3a1f1d;
+  --live: #5fd08e;
+  --shadow: none;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Noto Sans Lao", "Phetsarath OT", "Lao Sangam MN", "Lao MN", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+code, kbd, pre { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+/* ---------- layout ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr);
+  max-width: 1180px;
+  margin: 0 auto;
+  gap: 48px;
+  padding: 0 24px;
+}
+nav.toc {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 32px 0 32px;
+}
+main { padding: 32px 0 96px; min-width: 0; }
+
+/* ---------- toc ---------- */
+.brand { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.brand-mark {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: var(--accent); color: #fff;
+  display: grid; place-items: center; flex: none;
+}
+.brand-name { font-weight: 700; font-size: 15px; line-height: 1.3; }
+.brand-sub { color: var(--muted); font-size: 12.5px; line-height: 1.3; }
+.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.toc li { counter-increment: toc; }
+.toc a {
+  display: flex; gap: 10px;
+  padding: 5px 10px; border-radius: 7px;
+  color: var(--muted); text-decoration: none; font-size: 14.5px; line-height: 1.55;
+}
+.toc a::before {
+  content: counter(toc);
+  min-width: 18px; color: var(--muted); opacity: .6;
+  font-variant-numeric: tabular-nums; font-size: 13px; padding-top: 1px;
+}
+.toc a:hover { background: var(--surface-2); color: var(--text); }
+.toc a.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.toc a.active::before { color: var(--accent); opacity: 1; }
+.theme-toggle {
+  margin-top: 20px;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1px solid var(--border); color: var(--muted);
+  border-radius: 8px; padding: 6px 12px; font: inherit; font-size: 13px; cursor: pointer;
+}
+.theme-toggle:hover { color: var(--text); }
+
+/* ---------- hero ---------- */
+.hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px 36px 30px;
+  box-shadow: var(--shadow);
+  margin-bottom: 40px;
+}
+.eyebrow { color: var(--accent); font-weight: 600; font-size: 14px; margin: 0 0 6px; }
+h1 { font-size: 34px; line-height: 1.35; margin: 0 0 10px; letter-spacing: -.01em; }
+.lede { color: var(--muted); font-size: 17px; margin: 0 0 22px; max-width: 62ch; }
+.flow {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  margin: 0; padding: 0; list-style: none;
+}
+.flow li {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 999px; padding: 4px 13px; font-size: 14px; white-space: nowrap;
+}
+.flow li.arrow { background: none; border: 0; padding: 0 2px; color: var(--muted); }
+.meta { margin-top: 22px; color: var(--muted); font-size: 13.5px; }
+
+/* ---------- sections ---------- */
+section { margin-bottom: 56px; }
+h2 {
+  font-size: 25px; line-height: 1.4; margin: 0 0 18px;
+  display: flex; align-items: baseline; gap: 12px;
+}
+h2 .num {
+  font-size: 14px; font-weight: 600; color: var(--accent);
+  background: var(--accent-soft); border-radius: 7px; padding: 1px 9px;
+  font-variant-numeric: tabular-nums; flex: none; position: relative; top: -3px;
+}
+h3 { font-size: 19px; margin: 32px 0 10px; line-height: 1.45; }
+p { margin: 0 0 14px; }
+ul, ol { padding-left: 22px; margin: 0 0 14px; }
+li { margin-bottom: 4px; }
+a { color: var(--accent); }
+strong { font-weight: 600; }
+
+code {
+  background: var(--code-bg); border: 1px solid var(--border);
+  border-radius: 5px; padding: 1px 6px; font-size: .86em;
+  overflow-wrap: anywhere;
+}
+pre {
+  background: var(--code-bg); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 18px; overflow-x: auto;
+  font-size: 13.5px; line-height: 1.7; margin: 0 0 16px;
+}
+pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+kbd {
+  display: inline-block; min-width: 24px; text-align: center;
+  background: var(--surface); border: 1px solid var(--border); border-bottom-width: 2px;
+  border-radius: 6px; padding: 0 7px; font-size: .85em; line-height: 1.6;
+}
+.ui {
+  font-weight: 600;
+  border-bottom: 1.5px solid var(--accent-soft);
+}
+.path { color: var(--muted); }
+.path .sep { padding: 0 4px; opacity: .6; }
+
+/* ---------- tables ---------- */
+.table-wrap {
+  overflow-x: auto; margin: 0 0 18px;
+  border: 1px solid var(--border); border-radius: 10px; background: var(--surface);
+}
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { background: var(--surface-2); font-weight: 600; font-size: 14px; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { white-space: nowrap; }
+td.wrap { white-space: normal; }
+
+/* ---------- callouts ---------- */
+.callout {
+  border-radius: 10px; padding: 12px 16px 12px 16px; margin: 0 0 18px;
+  border-left: 4px solid; font-size: 15px;
+}
+.callout p:last-child, .callout ul:last-child { margin-bottom: 0; }
+.callout .label { font-weight: 700; display: block; margin-bottom: 2px; font-size: 14px; }
+.callout.tip { background: var(--tip-soft); border-color: var(--tip); }
+.callout.tip .label { color: var(--tip); }
+.callout.warn { background: var(--warn-soft); border-color: var(--warn); }
+.callout.warn .label { color: var(--warn); }
+.callout.danger { background: var(--danger-soft); border-color: var(--danger); }
+.callout.danger .label { color: var(--danger); }
+
+/* ---------- steps ---------- */
+.steps { list-style: none; padding: 0; margin: 0 0 18px; counter-reset: step; }
+.steps > li {
+  counter-increment: step; position: relative;
+  padding: 0 0 18px 48px; margin: 0;
+}
+.steps > li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--accent); color: #fff; font-weight: 600; font-size: 14px;
+  display: grid; place-items: center;
+}
+.steps > li::after {
+  content: ""; position: absolute; left: 14.5px; top: 34px; bottom: 4px;
+  width: 1px; background: var(--border);
+}
+.steps > li:last-child::after { display: none; }
+.steps > li > strong:first-child { display: block; }
+
+/* ---------- cards ---------- */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 0 0 18px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px 18px; box-shadow: var(--shadow);
+}
+.card h4 { margin: 0 0 4px; font-size: 16px; }
+.card p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.7; }
+.card .tag {
+  display: inline-block; font-size: 12px; font-weight: 600; border-radius: 6px;
+  padding: 0 8px; margin-bottom: 8px; background: var(--accent-soft); color: var(--accent);
+}
+
+.camera-tabs { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin-bottom: 18px; }
+.camera, .card { min-width: 0; }
+.camera {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px 20px; box-shadow: var(--shadow);
+}
+.camera h4 { margin: 0 0 8px; font-size: 17px; display: flex; align-items: center; gap: 8px; }
+.camera h4 small { color: var(--muted); font-weight: 400; font-size: 13.5px; }
+.camera pre { margin-bottom: 10px; }
+.camera ul:last-child, .camera p:last-child { margin-bottom: 0; }
+
+.status-live { color: var(--live); font-weight: 600; white-space: nowrap; }
+
+.quick-flow { list-style: none; padding: 0; margin: 0 0 18px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; counter-reset: q; }
+.quick-flow li {
+  counter-increment: q; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 14px 10px 46px; position: relative; margin: 0; font-size: 15px;
+}
+.quick-flow li::before {
+  content: counter(q); position: absolute; left: 12px; top: 10px;
+  width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+  font-weight: 700; font-size: 13px; display: grid; place-items: center;
+}
+
+footer { color: var(--muted); font-size: 13.5px; border-top: 1px solid var(--border); padding-top: 20px; }
+
+/* ---------- mobile ---------- */
+.mobile-bar { display: none; }
+@media (max-width: 900px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0 16px; }
+  nav.toc {
+    position: fixed; inset: 0 auto 0 0; width: min(300px, 86vw);
+    background: var(--bg); border-right: 1px solid var(--border);
+    padding: 24px 16px; z-index: 20; transform: translateX(-102%);
+    transition: transform .2s ease;
+  }
+  nav.toc.open { transform: none; box-shadow: 0 0 40px rgba(0,0,0,.25); }
+  .mobile-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    margin: 0 -16px; padding: 10px 16px;
+  }
+  .mobile-bar .title { font-weight: 600; font-size: 15px; }
+  .mobile-bar button {
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; padding: 5px 12px; font: inherit; font-size: 14px; cursor: pointer;
+  }
+  main { padding-top: 20px; }
+  .hero { padding: 24px 20px; }
+  h1 { font-size: 27px; }
+  h2 { font-size: 22px; }
+  html { scroll-padding-top: 64px; }
+}
+
+
+/* ---------- languages ---------- */
+html[data-ui="lo"] [data-lang]:not([data-lang="lo"]),
+html[data-ui="th"] [data-lang]:not([data-lang="th"]),
+html[data-ui="en"] [data-lang]:not([data-lang="en"]) { display: none !important; }
+[data-lang="th"] { font-family: "Noto Sans Thai", "Thonburi", "Sukhumvit Set", system-ui, sans-serif; }
+[data-lang="en"] { font-family: "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.7; }
+.langs {
+  display: inline-flex; gap: 2px; padding: 3px;
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+  margin-bottom: 20px;
+}
+.langs button {
+  font: inherit; font-size: 13.5px; line-height: 1.5; cursor: pointer;
+  border: 0; background: none; color: var(--muted);
+  padding: 4px 12px; border-radius: 7px;
+}
+.langs button[lang="th"] { font-family: "Noto Sans Thai", system-ui, sans-serif; }
+.langs button[lang="en"] { font-family: "Noto Sans", system-ui, sans-serif; }
+.langs button:hover { color: var(--text); }
+.langs button[aria-pressed="true"] {
+  background: var(--surface); color: var(--text); font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0,0,0,.08);
+}
+.mobile-bar .langs { margin: 0; }
+.mobile-bar .right { display: flex; align-items: center; gap: 8px; }
+@media (max-width: 420px) {
+  .mobile-bar .title { display: none; }
+  .mobile-bar { justify-content: flex-end; }
+}
+
+/* ---------- print ---------- */
+@media print {
+  nav.toc, .mobile-bar, .theme-toggle, .langs { display: none !important; }
+  .layout { display: block; max-width: none; padding: 0; }
+  body { background: #fff; color: #000; font-size: 11.5pt; }
+  .hero, .card, .camera, .table-wrap { box-shadow: none; }
+  section { break-inside: auto; }
+  h2, h3 { break-after: avoid; }
+  pre, .callout, .camera, tr { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<nav class="toc" id="toc" aria-label="Contents">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+    </div>
+    <div>
+      <div class="brand-name">Thaiymuan Production</div>
+      <div class="brand-sub"><span data-lang="lo">ຄູ່ມືການນຳໃຊ້</span><span data-lang="th">คู่มือการใช้งาน</span><span data-lang="en">User manual</span></div>
+    </div>
+  </div>
+  <div class="langs" role="group" aria-label="Language">
+    <button type="button" lang="lo" data-set-lang="lo">ລາວ</button>
+    <button type="button" lang="th" data-set-lang="th">ไทย</button>
+    <button type="button" lang="en" data-set-lang="en">English</button>
+  </div>
+  <div data-lang="lo">
+  <ol>
+    <li><a href="#lo-requirements">ສິ່ງທີ່ຕ້ອງມີ</a></li>
+    <li><a href="#lo-install">ການຕິດຕັ້ງ</a></li>
+    <li><a href="#lo-camera-setup">ຕັ້ງຄ່າກ້ອງກ່ອນໃຊ້</a></li>
+    <li><a href="#lo-open">ເປີດໃຊ້ງານປລັກອິນ</a></li>
+    <li><a href="#lo-tether">ຖ່າຍ Tether ເທື່ອລະຂັ້ນ</a></li>
+    <li><a href="#lo-watched-folder">ໂໝດ Watched folder</a></li>
+    <li><a href="#lo-wifi-ftp">ຮັບພາບຜ່ານ Wi-Fi (FTP)</a></li>
+    <li><a href="#lo-naming">ຕັ້ງຊື່ໄຟລ໌ ແລະ ໂຟນເດີ</a></li>
+    <li><a href="#lo-watermark">ລາຍນ້ຳ ແລະ Export Profile</a></li>
+    <li><a href="#lo-auto-export">Export ອັດຕະໂນມັດທຸກພາບ</a></li>
+    <li><a href="#lo-deliver">ສົ່ງໄຟລ໌ຂຶ້ນຄລາວ</a></li>
+    <li><a href="#lo-interval">ຖ່າຍອັດຕະໂນມັດຕາມເວລາ</a></li>
+    <li><a href="#lo-export">Export ແບບປົກກະຕິ</a></li>
+    <li><a href="#lo-troubleshoot">ແກ້ໄຂບັນຫາ</a></li>
+    <li><a href="#lo-reference">ຕາຕະລາງອ້າງອີງດ່ວນ</a></li>
+  </ol>
+  </div>
+  <div data-lang="th">
+  <ol>
+    <li><a href="#th-requirements">สิ่งที่ต้องมี</a></li>
+    <li><a href="#th-install">ติดตั้ง</a></li>
+    <li><a href="#th-camera-setup">ตั้งค่ากล้องก่อนใช้</a></li>
+    <li><a href="#th-open">เปิดใช้งานปลั๊กอิน</a></li>
+    <li><a href="#th-tether">ถ่าย Tether ทีละขั้น</a></li>
+    <li><a href="#th-watched-folder">โหมด Watched folder</a></li>
+    <li><a href="#th-wifi-ftp">รับภาพผ่าน Wi-Fi (FTP)</a></li>
+    <li><a href="#th-naming">ตั้งชื่อไฟล์และโฟลเดอร์</a></li>
+    <li><a href="#th-watermark">ลายน้ำและ Export Profile</a></li>
+    <li><a href="#th-auto-export">Export อัตโนมัติทุกภาพ</a></li>
+    <li><a href="#th-deliver">ส่งไฟล์ขึ้นคลาวด์</a></li>
+    <li><a href="#th-interval">ถ่ายอัตโนมัติตามเวลา</a></li>
+    <li><a href="#th-export">Export แบบปกติ</a></li>
+    <li><a href="#th-troubleshoot">แก้ปัญหา</a></li>
+    <li><a href="#th-reference">ตารางอ้างอิงเร็ว</a></li>
+  </ol>
+  </div>
+  <div data-lang="en">
+  <ol>
+    <li><a href="#en-requirements">Requirements</a></li>
+    <li><a href="#en-install">Installation</a></li>
+    <li><a href="#en-camera-setup">Camera setup</a></li>
+    <li><a href="#en-open">Opening the plug-in</a></li>
+    <li><a href="#en-tether">Tethered capture, step by step</a></li>
+    <li><a href="#en-watched-folder">Watched folder mode</a></li>
+    <li><a href="#en-wifi-ftp">Camera over Wi-Fi (FTP)</a></li>
+    <li><a href="#en-naming">File and folder naming</a></li>
+    <li><a href="#en-watermark">Watermarks and export profiles</a></li>
+    <li><a href="#en-auto-export">Auto-export every capture</a></li>
+    <li><a href="#en-deliver">Cloud delivery</a></li>
+    <li><a href="#en-interval">Interval shooting</a></li>
+    <li><a href="#en-export">Regular export</a></li>
+    <li><a href="#en-troubleshoot">Troubleshooting</a></li>
+    <li><a href="#en-reference">Quick reference</a></li>
+  </ol>
+  </div>
+  <button class="theme-toggle" type="button" id="themeToggle">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    <span data-lang="lo">ສະຫຼັບໂໝດມືດ / ແຈ້ງ</span><span data-lang="th">สลับโหมดมืด / สว่าง</span><span data-lang="en">Dark / light mode</span>
+  </button>
+</nav>
+
+<main>
+
+<div class="mobile-bar">
+  <span class="title">Thaiymuan Production</span>
+  <div class="right">
+  <div class="langs" role="group" aria-label="Language">
+    <button type="button" lang="lo" data-set-lang="lo">ລາວ</button>
+    <button type="button" lang="th" data-set-lang="th">ไทย</button>
+    <button type="button" lang="en" data-set-lang="en">English</button>
+  </div>
+  <button type="button" id="tocButton" aria-controls="toc" aria-expanded="false"><span data-lang="lo">ສາລະບານ</span><span data-lang="th">สารบัญ</span><span data-lang="en">Contents</span></button>
+  </div>
+</div>
+
+<div class="doc" data-lang="lo" lang="lo">
+<header class="hero">
+  <p class="eyebrow">ຄູ່ມືການນຳໃຊ້ · ສະບັບ 1.2</p>
+  <h1>Thaiymuan Production</h1>
+  <p class="lede">ປລັກອິນສຳລັບ <strong>Adobe Lightroom Classic</strong> ສຳລັບຖ່າຍພາບແບບຕໍ່ສາຍ (tether) ຈາກກ້ອງ
+  Canon, Nikon ແລະ Sony ຜ່ານສາຍ USB ຫຼື Wi-Fi ເຂົ້າ Lightroom ໂດຍອັດຕະໂນມັດ ພ້ອມ export ໃສ່ລາຍນ້ຳທັນທີທີ່ກົດຊັດເຕີ.</p>
+  <ul class="flow" aria-label="ຂັ້ນຕອນການເຮັດວຽກ">
+    <li>ກົດຊັດເຕີ</li><li class="arrow">→</li>
+    <li>ດາວໂຫຼດຈາກກ້ອງ</li><li class="arrow">→</li>
+    <li>ຈັດເກັບເຂົ້າໂຟນເດີ</li><li class="arrow">→</li>
+    <li>ເຂົ້າ Lightroom</li><li class="arrow">→</li>
+    <li>Export ໃສ່ລາຍນ້ຳ</li>
+  </ul>
+  <p class="meta">ສະຫງວນລິຂະສິດ © 2026 Thaiymuan Production · ພັດທະນາໂດຍ Kongjai Sayavong</p>
+</header>
+
+<!-- 1 -->
+<section id="lo-requirements">
+  <h2><span class="num">1</span>ສິ່ງທີ່ຕ້ອງມີ</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ລາຍການ</th><th>ໝາຍເຫດ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Lightroom Classic 10 ຂຶ້ນໄປ</strong></td><td class="wrap">ຈຳເປັນ. Lightroom ລຸ້ນຄລາວ (ທີ່ບໍ່ແມ່ນ Classic) ບໍ່ຮອງຮັບປລັກອິນ, ຈຶ່ງເຮັດ tether ບໍ່ໄດ້ເລີຍ.</td></tr>
+      <tr><td><strong>macOS 11 ຂຶ້ນໄປ</strong></td><td class="wrap">ປລັກອິນນີ້ໃຊ້ໄດ້ສະເພາະ Mac.</td></tr>
+      <tr><td><strong>Xcode Command Line Tools</strong></td><td class="wrap">ຕິດຕັ້ງຄັ້ງດຽວດ້ວຍ <code>xcode-select --install</code>. ໃຊ້ສຳລັບສ້າງໂປຣແກຣມຊ່ວຍໃສ່ລາຍນ້ຳ.</td></tr>
+      <tr><td><strong>gPhoto2</strong></td><td class="wrap"><code>brew install gphoto2</code>. ຈຳເປັນຖ້າຕໍ່ກ້ອງຜ່ານສາຍ USB ໂດຍກົງ.</td></tr>
+      <tr><td>ກ້ອງທີ່ສົ່ງພາບຜ່ານ FTP ໄດ້ <span class="path">(ບໍ່ບັງຄັບ)</span></td><td class="wrap">ສຳລັບຖ່າຍຜ່ານ Wi-Fi ໂດຍບໍ່ໃຊ້ສາຍ. ບໍ່ຕ້ອງໃຊ້ gPhoto2, FTP server ມີຢູ່ໃນປລັກອິນແລ້ວ (ເບິ່ງຫົວຂໍ້ <a href="#lo-wifi-ftp">7</a>).</td></tr>
+      <tr><td>ImageMagick <span class="path">(ບໍ່ບັງຄັບ)</span></td><td class="wrap"><code>brew install imagemagick</code>. ເປັນທາງເລືອກສຳຮອງສຳລັບໃສ່ລາຍນ້ຳ.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">
+    <span class="label">ບໍ່ຢາກຕິດຕັ້ງ gPhoto2?</span>
+    <p>ຍັງໃຊ້ງານໄດ້ຜ່ານໂໝດ <a href="#lo-watched-folder">Watched folder</a>: ໃຫ້ແອັບຂອງຜູ້ຜະລິດກ້ອງ
+    (Sony Imaging Edge, Canon EOS Utility, Nikon NX Tether) ເປັນຕົວດຶງພາບ, ແລ້ວປລັກອິນຈະຄອຍເບິ່ງໂຟນເດີນັ້ນແທນ.</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="lo-install">
+  <h2><span class="num">2</span>ການຕິດຕັ້ງ</h2>
+  <ol class="steps">
+    <li><strong>ເປີດ Terminal ແລ້ວແລ່ນສະຄຣິບຕິດຕັ້ງ</strong>
+<pre><code>cd lightroom-tether-studio
+./install.sh</code></pre>
+      ສະຄຣິບຈະສ້າງ (compile) ໂປຣແກຣມຊ່ວຍໃສ່ລາຍນ້ຳ ແລ້ວເຊື່ອມປລັກອິນເຂົ້າໂຟນເດີປລັກອິນຂອງ Lightroom.
+    </li>
+    <li><strong>ຕິດຕັ້ງ gPhoto2</strong> (ຖ້າຍັງບໍ່ມີ ແລະ ຈະຕໍ່ກ້ອງຜ່ານ USB)
+<pre><code>./scripts/install-deps.sh --gphoto2</code></pre>
+    </li>
+    <li><strong>ກວດໃນ Lightroom Classic</strong>
+      <p>ໄປທີ່ <span class="path"><span class="ui">File</span><span class="sep">→</span><span class="ui">Plug-in Manager</span></span>.
+      ຕ້ອງເຫັນ <strong>Thaiymuan Production</strong> ຢູ່ໃນລາຍການ. ຖ້າບໍ່ເຫັນ, ກົດ <span class="ui">Add</span> ແລ້ວເລືອກໂຟນເດີ
+      <code>ThaiymuanProduction.lrplugin</code>.</p>
+    </li>
+  </ol>
+  <div class="callout warn">
+    <span class="label">ຖ້າ Lightroom ບໍ່ເຫັນປລັກອິນ</span>
+    <p>ບາງຄັ້ງ Lightroom ບໍ່ອ່ານ symlink. ໃຫ້ຕິດຕັ້ງແບບສຳເນົາແທນດ້ວຍ <code>./install.sh --copy</code>.</p>
+  </div>
+  <p><strong>ຖອນການຕິດຕັ້ງ:</strong> <code>./install.sh --uninstall</code></p>
+</section>
+
+<!-- 3 -->
+<section id="lo-camera-setup">
+  <h2><span class="num">3</span>ຕັ້ງຄ່າກ້ອງກ່ອນໃຊ້ຄັ້ງທຳອິດ</h2>
+  <p>ຂັ້ນຕອນນີ້ <strong>ສຳຄັນທີ່ສຸດ</strong>. ຖ້າຕັ້ງຜິດ, ກ້ອງຈະຕໍ່ບໍ່ຕິດ ຫຼື ບໍ່ສົ່ງພາບມາໃຫ້.</p>
+  <div class="camera-tabs">
+    <div class="camera">
+      <h4>Sony <small>A7 III, A7 IV, A7R V, A1 II, A6700, FX3</small></h4>
+<pre><code>MENU → Setup (ໄອຄອນກະເປົ໋າ) → USB Connection → PC Remote
+MENU → Setup → PC Remote Settings → Still Img. Save Dest. → PC+Camera</code></pre>
+      <ul>
+        <li>ຖ້າຕັ້ງເປັນ <strong>Auto / Mass Storage / MTP</strong>, ຄອມຈະເຫັນກ້ອງແຕ່ກ້ອງຈະບໍ່ສົ່ງພາບມາ.</li>
+        <li>ຖ້າ Save Dest. ເປັນ <strong>Camera Only</strong>, ກ້ອງຈະຖ່າຍໄດ້ແຕ່ບໍ່ສົ່ງໄຟລ໌ມາຄອມ.</li>
+      </ul>
+    </div>
+    <div class="camera">
+      <h4>Canon</h4>
+      <p>ຕັ້ງກ້ອງເປັນໂໝດຖ່າຍພາບນິ່ງ (ບໍ່ແມ່ນໂໝດວິດີໂອ).</p>
+    </div>
+    <div class="camera">
+      <h4>Nikon</h4>
+      <p>ຕັ້ງ USB ເປັນ <strong>MTP/PTP</strong> (ບໍ່ແມ່ນ Mass Storage) ແລະ ປິດ Wi-Fi / Bluetooth ກ່ອນ,
+      ເພາະມັນຈະແຍ່ງການເຊື່ອມຕໍ່ USB.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="lo-open">
+  <h2><span class="num">4</span>ເປີດໃຊ້ງານປລັກອິນ</h2>
+  <p>ຕ້ອງຢູ່ໃນໂມດູນ <strong>Library</strong> ກ່ອນ (ກົດ <kbd>G</kbd>), ແລ້ວໄປທີ່
+  <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span></span>. ຈະເຫັນ 3 ເມນູ:</p>
+  <div class="cards">
+    <div class="card"><span class="tag">ໜ້າຈໍຫຼັກ</span><h4>Tethered Capture…</h4><p>ໜ້າຈໍສຳລັບຖ່າຍພາບແບບຕໍ່ສາຍ.</p></div>
+    <div class="card"><span class="tag">ຕັ້ງຄ່າ</span><h4>Export Profiles…</h4><p>ຕັ້ງຄ່າລາຍນ້ຳ, ຂະໜາດພາບ ແລະ ປະເພດໄຟລ໌.</p></div>
+    <div class="card"><span class="tag">ກວດບັນຫາ</span><h4>Camera Diagnostics…</h4><p>ກວດຫາສາເຫດເມື່ອກ້ອງຕໍ່ບໍ່ຕິດ.</p></div>
+  </div>
+  <p>ສ່ວນການຕັ້ງຄ່າເຄື່ອງມື ແລະ ປຸ່ມ <span class="ui">Build Watermark Helper</span> ຢູ່ທີ່
+  <span class="path"><span class="ui">File</span><span class="sep">→</span><span class="ui">Plug-in Manager</span><span class="sep">→</span><span class="ui">Thaiymuan Production</span></span>.</p>
+  <div class="callout tip">
+    <span class="label">ບໍ່ເຫັນເມນູ Plug-in Extras?</span>
+    <p>ແປວ່າຢູ່ຜິດໂມດູນ. ກົດ <kbd>G</kbd> ເພື່ອກັບມາທີ່ Library.</p>
+  </div>
+
+  <h3>ປ່ຽນພາສາຂອງໜ້າຈໍ</h3>
+  <p>ໜ້າຈໍຂອງປລັກອິນມີ 3 ພາສາ: <strong>ລາວ</strong> (ຄ່າເລີ່ມຕົ້ນ), <strong>ໄທ</strong> ແລະ <strong>English</strong>. ເລືອກໄດ້ຈາກຊ່ອງ <span class="ui">ພາສາ</span> ທີ່ຢູ່ເທິງສຸດຂອງ:</p>
+  <ul>
+    <li><span class="path"><span class="ui">File</span><span class="sep">→</span><span class="ui">Plug-in Manager</span><span class="sep">→</span><span class="ui">Thaiymuan Production</span></span> (ບ່ອນຫຼັກ)</li>
+    <li>ໜ້າຕ່າງ Tethered Capture ແລະ ໜ້າຕ່າງ Export Profiles</li>
+  </ul>
+  <p>ພາສາໃໝ່ຈະມີຜົນ <strong>ເມື່ອເປີດໜ້າຕ່າງຄັ້ງຕໍ່ໄປ</strong>. ເມນູໃນ <span class="ui">Plug-in Extras</span> ເປັນພາສາອັງກິດສະເໝີ ເພາະ Lightroom ເປັນຜູ້ສະແດງ.</p>
+
+  <h3>ການຕັ້ງຄ່າພື້ນຖານ ແລະ ຂັ້ນສູງ</h3>
+  <p>ທຸກໜ້າຕ່າງສະແດງພຽງການຕັ້ງຄ່າທີ່ງານຖ່າຍສ່ວນຫຼາຍຕ້ອງໃຊ້. ການຕັ້ງຄ່າອື່ນເຊື່ອງໄວ້ໃນ ☐ <span class="ui">ສະແດງການຕັ້ງຄ່າຂັ້ນສູງ</span>. ຄ່າທີ່ເຊື່ອງໄວ້ <strong>ບໍ່ຖືກລຶບ ແລະ ຍັງໃຊ້ງານຢູ່</strong>. ແຕ່ລະແຖບມີແຖວສີເທົາບອກວ່າເຊື່ອງຫຍັງໄວ້.</p>
+</section>
+
+<!-- 5 -->
+<section id="lo-tether">
+  <h2><span class="num">5</span>ຖ່າຍ Tether ເທື່ອລະຂັ້ນ</h2>
+  <p>ເປີດ <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span><span class="sep">→</span><span class="ui">Tethered Capture…</span></span> ແຖບລຽງຕາມລຳດັບການເຮັດວຽກ:
+  <span class="ui">1 · ກ້ອງ</span> → <span class="ui">2 · ໄຟລ໌</span> → <span class="ui">3 · ຕອນນຳເຂົ້າ</span> → <span class="ui">4 · Export ອັດຕະໂນມັດ</span>. ຂ້າງປຸ່ມເລີ່ມມີລາຍການກວດ <span class="ui">5 · ກວດ ແລ້ວເລີ່ມຖ່າຍ</span>.</p>
+  <div class="callout tip">
+    <span class="label">ຊື່ປຸ່ມໃນຄູ່ມືນີ້</span>
+    <p>ໃຊ້ຊື່ຕາມໜ້າຈໍພາສາລາວ. ຊື່ພາສາອັງກິດຢູ່ໃນວົງເລັບ ເຊັ່ນ <span class="ui">ເລີ່ມຖ່າຍ</span> (Start Capture).</p>
+  </div>
+
+  <h3>ແຖບ 1 · ກ້ອງ</h3>
+  <ol class="steps">
+    <li><strong>ແຫຼ່ງພາບ (Source)</strong>ເລືອກ <span class="ui">ກ້ອງຜ່ານສາຍ USB (gPhoto2)</span>, ຫຼື <code>Watched folder</code> ຖ້າໃຊ້ແອັບຂອງຜູ້ຜະລິດກ້ອງ (ເບິ່ງຫົວຂໍ້ <a href="#lo-watched-folder">6</a>). ຖ້າຖ່າຍຜ່ານ Wi-Fi ເລືອກ <span class="ui">ກ້ອງຜ່ານ Wi-Fi (FTP)</span> (ເບິ່ງຫົວຂໍ້ <a href="#lo-wifi-ftp">7</a>).</li>
+    <li><strong>ກ້ອງຈະຂຶ້ນເອງ</strong>ສຽບສາຍ USB ແລ້ວລໍ 1–3 ວິນາທີ. ຊື່ກ້ອງຈະຂຶ້ນໃນຊ່ອງ <span class="ui">Camera</span>.
+      <ul>
+        <li>☑ <span class="ui">ອັດຕະໂນມັດ</span> (Auto) ຄອຍສະແກນຫາກ້ອງຢູ່ຕະຫຼອດ.</li>
+        <li>ປຸ່ມ <span class="ui">ຄົ້ນຫາກ້ອງ</span> (Detect) ສະແກນທັນທີ.</li>
+      </ul>
+    </li>
+  </ol>
+  <p>ໃນ <strong>ການຕັ້ງຄ່າຂັ້ນສູງ</strong> ຂອງແຖບນີ້ (ຄ່າເລີ່ມຕົ້ນໃຊ້ໄດ້ເລີຍ):</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ການຕັ້ງຄ່າ</th><th>ຄ່າເລີ່ມຕົ້ນ ແລະ ເວລາທີ່ຄວນປ່ຽນ</th></tr></thead>
+    <tbody>
+      <tr><td>ຕໍ່ຄືນອັດຕະໂນມັດ (Reconnect…)</td><td class="wrap">ເປີດ. ສາຍຫຼຸດ ຫຼື ປ່ຽນແບັດ ລະບົບຈະຕໍ່ຄືນເອງ, ພາບທີ່ຄ້າງຢູ່ບໍ່ເສຍ.</td></tr>
+      <tr><td>ແຈ້ງເຕືອນດ້ວຍ (Announce with)</td><td class="wrap">ຂໍ້ຄວາມນ້ອຍໆ ທີ່ຫາຍເອງ. ປ່ຽນເປັນໜ້າຕ່າງແຈ້ງເຕືອນ ຫຼື ປິດກໍ່ໄດ້.</td></tr>
+      <tr><td>ວິທີຮັບພາບ (Capture events)</td><td class="wrap">ອັດຕະໂນມັດ (ຕາມຍີ່ຫໍ້ກ້ອງ). ປ່ຽນເປັນ <code>Any new image (Sony)</code> ຖ້າຂຶ້ນ Live ແຕ່ບໍ່ມີພາບເຂົ້າ.</td></tr>
+      <tr><td>ການຖ່າຍຕາມເວລາ (Shutter)</td><td class="wrap">ກົດເອງ. ເບິ່ງຫົວຂໍ້ <a href="#lo-interval">12</a>.</td></tr>
+      <tr><td>ກວດທຸກ / ຂະໜາດພາບ / ປະເພດໄຟລ໌</td><td class="wrap">0.4 ວິນາທີ / 900 px / ໄຟລ໌ RAW ແລະ JPEG ທົ່ວໄປ.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>ແຖບ 2 · ໄຟລ໌</h3>
+  <ul>
+    <li><span class="ui">ໂຟນເດີປາຍທາງ</span> (Destination): ບ່ອນເກັບພາບ. ຖ້າຍັງຫວ່າງ ຈະສະເໜີ <code>~/Pictures/Thaiymuan Tether</code> ໃຫ້. ໂຟນເດີຈະຖືກສ້າງຕອນເລີ່ມຖ່າຍ.</li>
+    <li>ຮູບແບບ <strong>ຊື່ໄຟລ໌</strong>: ເບິ່ງຫົວຂໍ້ <a href="#lo-naming">8</a>. ແຖວ <span class="ui">Example</span> ສະແດງຊື່ໄຟລ໌ຖັດໄປ.</li>
+    <li>ໃນການຕັ້ງຄ່າຂັ້ນສູງ: <span class="ui">ໄຟລ໌ທີ່ເຂົ້າມາ</span>, ໂຟນເດີຍ່ອຍ, Template, ຊື່ເຊສຊັນ ແລະ ເລກຖັດໄປ.</li>
+  </ul>
+
+  <h3>ແຖບ 3 · ຕອນນຳເຂົ້າ</h3>
+  <ul>
+    <li>☑ <span class="ui">ເພີ່ມພາບທີ່ຖ່າຍເຂົ້າແຄັດຕາລັອກ</span> ເພື່ອໃຫ້ພາບເຂົ້າ Lightroom ເອງ.</li>
+    <li><span class="ui">ສະແດງພາບລ່າສຸດທີ່</span>: ເລືອກວິທີສະແດງພາບທີ່ຫາກໍ່ຖ່າຍ:</li>
+  </ul>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ຕົວເລືອກ</th><th>ເໝາະກັບ</th></tr></thead>
+    <tbody>
+      <tr><td>ບໍ່ປ່ຽນໜ້າຈໍ</td><td class="wrap">ບໍ່ແຕະໜ້າຈໍເລີຍ (ຄ່າເລີ່ມຕົ້ນ)</td></tr>
+      <tr><td>Loupe ໃນໜ້າຕ່າງຫຼັກ</td><td class="wrap">ເບິ່ງພາບໃຫຍ່ໃນຈໍຫຼັກ</td></tr>
+      <tr><td><strong>Loupe ໃນຈໍທີສອງ</strong></td><td class="wrap"><strong>ແນະນຳສຳລັບໃຫ້ລູກຄ້າເບິ່ງ</strong></td></tr>
+      <tr><td>ສະໄລໂຊໃນຈໍທີສອງ</td><td class="wrap">ຈໍທີສອງແບບສະໄລໂຊ</td></tr>
+      <tr><td>ເບິ່ງເຕັມຈໍ</td><td class="wrap">ເຕັມຈໍ ບໍ່ມີໜ້າຕ່າງອື່ນ</td></tr>
+    </tbody>
+  </table></div>
+  <p>ໃນການຕັ້ງຄ່າຂັ້ນສູງ: Develop preset, Metadata preset, Keywords, Collection, ເລືອກພາບລ່າສຸດໃນ Library ແລະ <span class="ui">Show with watermark</span>.</p>
+
+  <h3>5 · ກວດ ແລ້ວເລີ່ມຖ່າຍ</h3>
+  <p>ຂ້າງປຸ່ມ <span class="ui">ເລີ່ມຖ່າຍ</span> ມີລາຍການກວດທີ່ອັບເດດເອງທຸກຄັ້ງທີ່ປ່ຽນການຕັ້ງຄ່າ:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ເຄື່ອງໝາຍ</th><th>ຄວາມໝາຍ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>✓</strong></td><td class="wrap">ພ້ອມແລ້ວ</td></tr>
+      <tr><td><strong>!</strong></td><td class="wrap">ເລີ່ມໄດ້ ແຕ່ຄວນອ່ານກ່ອນ, ເຊັ່ນ ມີໄຟລ໌ເກົ່າຢູ່ໃນໂຟນເດີທີ່ຄອຍເບິ່ງ ຊຶ່ງຈະຖືກນຳເຂົ້າ</td></tr>
+      <tr><td><strong>✕</strong></td><td class="wrap">ຕ້ອງແກ້ກ່ອນ, ເຊັ່ນ ບໍ່ພົບກ້ອງ, ຍັງບໍ່ໄດ້ເລືອກໂຟນເດີປາຍທາງ, ໂຟນເດີປາຍທາງຢູ່ໃນໂຟນເດີທີ່ຄອຍເບິ່ງ, ຫຼື ເປີດ Export ອັດຕະໂນມັດ ແຕ່ຍັງບໍ່ໄດ້ເລືອກ profile ຫຼື ໂຟນເດີ</td></tr>
+    </tbody>
+  </table></div>
+  <p>ຖ້າຍັງມີ ✕, <strong>ປຸ່ມ ເລີ່ມຖ່າຍ ຈະກົດບໍ່ໄດ້</strong>. ແຖວສະຖານະຈະບອກວ່າຕ້ອງແກ້ຫຍັງ ແລະ ຢູ່ແຖບໃດ, ເຊັ່ນ <em>"ເລືອກໂຟນເດີປາຍທາງ (ແຖບ 2 · ໄຟລ໌)"</em>.</p>
+
+  <h3>ເລີ່ມຖ່າຍ</h3>
+  <ol class="steps">
+    <li><strong>ກົດ ເລີ່ມຖ່າຍ (Start Capture)</strong>ສະຖານະຈະຂຶ້ນ <span class="status-live">"ພ້ອມແລ້ວ — ກົດຊັດເຕີທີ່ກ້ອງໄດ້ເລີຍ"</span>.</li>
+    <li><strong>ກົດຊັດເຕີທີ່ກ້ອງ</strong>ພາບຈະຂຶ້ນໃນໜ້າຕ່າງພາຍໃນບໍ່ເທົ່າໃດວິນາທີ. ປຸ່ມ <span class="ui">ເປີດໃນ Finder</span> ຈະເປີດໂຟນເດີຂອງພາບ.</li>
+  </ol>
+
+  <h3>ຢຸດ ແລະ ປິດໜ້າຕ່າງ</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ປຸ່ມ</th><th>ຜົນ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ຢຸດຖ່າຍ</strong> (Stop Capture)</td><td class="wrap">ຢຸດເຊສຊັນ. ປຸ່ມຈະຂຶ້ນ "ກຳລັງຢຸດ…" ແລະ ກົດບໍ່ໄດ້ ຈົນກວ່າກ້ອງຈະຖືກປ່ອຍ (ບໍ່ເກີນ ~8 ວິນາທີ)</td></tr>
+      <tr><td><strong>ປິດ</strong> (Close)</td><td class="wrap">ຢຸດຖ່າຍ ແລະ ປິດໜ້າຕ່າງ</td></tr>
+      <tr><td><strong>ປິດໜ້າຕ່າງ, ຖ່າຍຕໍ່</strong></td><td class="wrap">ປິດໜ້າຕ່າງ ແຕ່ຍັງຖ່າຍຕໍ່ຢູ່ເບື້ອງຫຼັງ</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn">
+    <span class="label">ຄວນຮູ້</span>
+    <ul>
+      <li>ໜ້າຕ່າງນີ້ເປັນແບບ modal. ຖ້າເປີດຄ້າງໄວ້ ຈະປິດ Lightroom ບໍ່ໄດ້.</li>
+      <li>ຫຼັງກົດ ຢຸດຖ່າຍ, ລໍໃຫ້ປຸ່ມກັບມາເປັນ ເລີ່ມຖ່າຍ ກ່ອນຈະຖອດສາຍ.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 6 -->
+<section id="lo-watched-folder">
+  <h2><span class="num">6</span>ໂໝດ Watched folder</h2>
+  <p>ໃຊ້ເມື່ອກ້ອງຕໍ່ USB ໂດຍກົງບໍ່ໄດ້, ຫຼື ຢາກໃຊ້ແອັບຂອງຜູ້ຜະລິດ (Imaging Edge Desktop, EOS Utility, NX Tether),
+  ຫຼື ສົ່ງພາບຜ່ານ Wi-Fi / FTP. ໂໝດນີ້ <strong>ບໍ່ໄດ້ດ້ອຍກວ່າ</strong>: ທຸກພາບຍັງໄດ້ການຕັ້ງຊື່, preset ແລະ auto-export ຄືກັນທຸກຢ່າງ.</p>
+  <ol class="steps">
+    <li><strong>ຕັ້ງແອັບຂອງຜູ້ຜະລິດ</strong>ໃຫ້ບັນທຶກພາບລົງໂຟນເດີໜຶ່ງ, ເຊັ່ນ <code>~/Pictures/Incoming</code>.</li>
+    <li><strong>Source</strong>ໃນແຖບ Camera ເລືອກ <code>Watched folder (vendor tether app, Wi-Fi or FTP)</code>.</li>
+    <li><strong>Watch folder</strong>ເລືອກໂຟນເດີດຽວກັນກັບທີ່ແອັບບັນທຶກພາບລົງ.</li>
+    <li><strong>Check every / File types</strong>ຄ່າເລີ່ມຕົ້ນໃຊ້ໄດ້ເລີຍ. ຖ້າສົ່ງຜ່ານ Wi-Fi ຫຼື FTP ທີ່ຊ້າ, ໃຫ້ເພີ່ມ <span class="ui">Check every</span> ເປັນ 2–3 ວິນາທີ.</li>
+    <li><strong>Incoming files</strong> (ແຖບ Files)
+      <ul>
+        <li><code>Move into the destination folder</code> — ຍ້າຍໄຟລ໌ອອກຈາກໂຟນເດີທີ່ເບິ່ງ</li>
+        <li><code>Copy into the destination folder</code> — ສຳເນົາ, ຕົ້ນສະບັບຍັງຢູ່</li>
+        <li><code>Leave where they are</code> — ບໍ່ຍ້າຍ, ນຳເຂົ້າ Lightroom ຈາກບ່ອນເດີມ</li>
+      </ul>
+    </li>
+  </ol>
+  <div class="callout danger">
+    <span class="label">ໂຟນເດີເປົ່າ ແລະ ແຍກກັນ</span>
+    <ul>
+      <li>ຖ້າ <strong>ໂຟນເດີປາຍທາງຢູ່ພາຍໃນໂຟນເດີທີ່ຄອຍເບິ່ງ</strong>, ລາຍການກວດຈະຂຶ້ນ ✕ ແລະ ກົດ ເລີ່ມຖ່າຍ ບໍ່ໄດ້. ນີ້ປ້ອງກັນບໍ່ໃຫ້ໄຟລ໌ຖືກສຳເນົາຊ້ຳບໍ່ຢຸດ.</li>
+      <li>ຖ້າ <strong>ໂຟນເດີທີ່ຄອຍເບິ່ງມີໄຟລ໌ເກົ່າຢູ່</strong>, ຈະຂຶ້ນ ! ພ້ອມຈຳນວນໄຟລ໌ ເພາະໄຟລ໌ເຫຼົ່ານັ້ນຈະຖືກນຳເຂົ້າ. ແນະນຳໃຫ້ໃຊ້ໂຟນເດີເປົ່າ.</li>
+      <li>ເມື່ອປ່ຽນແຫຼ່ງພາບເປັນ Watched folder, <span class="ui">ໄຟລ໌ທີ່ເຂົ້າມາ</span> ຈະປ່ຽນຈາກ "ຍ້າຍ" ເປັນ <strong>"ສຳເນົາ"</strong> ເອງ ເພື່ອໃຫ້ຕົ້ນສະບັບຍັງຢູ່. ປ່ຽນໄດ້ໃນການຕັ້ງຄ່າຂັ້ນສູງ.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="lo-wifi-ftp">
+  <h2><span class="num">7</span>ຮັບພາບຈາກກ້ອງຜ່ານ Wi-Fi (FTP)</h2>
+  <p>ກ້ອງ Sony, Canon ແລະ Nikon ຫຼາຍລຸ້ນສົ່ງພາບຂຶ້ນ FTP server ຜ່ານ Wi-Fi ໄດ້. ປລັກອິນມີ FTP server ນ້ອຍໆ ຢູ່ໃນໂຕ
+  (<code>tsftpd</code>), ຈຶ່ງຖ່າຍແບບບໍ່ມີສາຍໄດ້ ໂດຍບໍ່ຕ້ອງຕິດຕັ້ງ gPhoto2 ຫຼື ແອັບອື່ນ.
+  ພາບທີ່ເຂົ້າມາຈະຖືກປ່ຽນຊື່, ນຳເຂົ້າ Lightroom ແລະ export ອັດຕະໂນມັດ ຄືກັບພາບຈາກສາຍ USB ທຸກຢ່າງ.</p>
+  <ol class="steps">
+    <li><strong>ຕໍ່ Wi-Fi ດຽວກັນ</strong>ກ້ອງ ແລະ Mac ຕ້ອງຢູ່ໃນເຄືອຂ່າຍ Wi-Fi ດຽວກັນ (ຫຼື ໃຫ້ກ້ອງຕໍ່ hotspot ດຽວກັບ Mac).</li>
+    <li><strong>ເລືອກແຫຼ່ງພາບ</strong>ແຖບ <span class="ui">1 · ກ້ອງ</span> → <span class="ui">ແຫຼ່ງພາບ</span> → <span class="ui">ກ້ອງຜ່ານ Wi-Fi (FTP)</span>. ກອບ <span class="ui">ໃສ່ຄ່າເຫຼົ່ານີ້ໃນກ້ອງ</span> ຈະສະແດງຂຶ້ນ.</li>
+    <li><strong>ໃສ່ຄ່າໃນກ້ອງ (ຄັ້ງດຽວ)</strong>ເປີດເມນູ FTP ຂອງກ້ອງ ແລ້ວພິມຄ່າຕາມກອບນັ້ນ (ເບິ່ງຕາຕະລາງຂ້າງລຸ່ມ). ເປີດການສົ່ງອັດຕະໂນມັດທຸກຄັ້ງທີ່ຖ່າຍ (auto transfer) ໄວ້ນຳ.</li>
+    <li><strong>ເລືອກໂຟນເດີປາຍທາງ ແລ້ວກົດ ເລີ່ມຖ່າຍ</strong>ສະຖານະຈະຂຶ້ນ <span class="status-live">"ພ້ອມແລ້ວ — ກຳລັງລໍຖ້າພາບຈາກກ້ອງຜ່ານ Wi-Fi ທີ່ …"</span>. ເມື່ອກ້ອງເຂົ້າສູ່ລະບົບ ສະຖານະຈະບອກວ່າກ້ອງເຊື່ອມຕໍ່ແລ້ວ.</li>
+    <li><strong>ຄັ້ງທຳອິດ: ກົດ Allow</strong>macOS ອາດຖາມວ່າຈະໃຫ້ <code>tsftpd</code> ຮັບການເຊື່ອມຕໍ່ຈາກເຄືອຂ່າຍບໍ່. ກົດ <span class="ui">Allow</span>, ບໍ່ດັ່ງນັ້ນກ້ອງຈະເຊື່ອມຕໍ່ບໍ່ໄດ້.</li>
+  </ol>
+
+  <h3>ຄ່າທີ່ຕ້ອງໃສ່ໃນກ້ອງ</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ໃນກ້ອງ</th><th>ຄ່າ</th></tr></thead>
+    <tbody>
+      <tr><td>Server address / Host</td><td class="wrap">ທີ່ຢູ່ IP ຂອງ Mac ທີ່ສະແດງໃນໜ້າຕ່າງ ເຊັ່ນ <code>192.168.1.20</code></td></tr>
+      <tr><td>Port</td><td class="wrap"><code>2121</code></td></tr>
+      <tr><td>User name</td><td class="wrap"><code>camera</code></td></tr>
+      <tr><td>Password</td><td class="wrap">ລະຫັດທີ່ສະແດງໃນໜ້າຕ່າງ (ປລັກອິນສ້າງໃຫ້ເອງ). ປຸ່ມ <span class="ui">ລະຫັດຜ່ານໃໝ່</span> ສ້າງລະຫັດໃໝ່; ຈາກນັ້ນຕ້ອງໃສ່ລະຫັດໃໝ່ໃນກ້ອງ.</td></tr>
+      <tr><td>Passive mode</td><td class="wrap">ເປີດ (On)</td></tr>
+      <tr><td>Secure protocol (FTPS)</td><td class="wrap">ປິດ (Off)</td></tr>
+      <tr><td>Directory</td><td class="wrap"><code>/</code> ຫຼື ປ່ອຍຫວ່າງ</td></tr>
+    </tbody>
+  </table></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ຍີ່ຫໍ້</th><th>ເມນູ FTP ໃນກ້ອງ</th></tr></thead>
+    <tbody>
+      <tr><td>Sony</td><td class="wrap"><span class="ui">MENU → Network → FTP Transfer Func.</span></td></tr>
+      <tr><td>Canon</td><td class="wrap"><span class="ui">Network settings → FTP transfer</span></td></tr>
+      <tr><td>Nikon</td><td class="wrap"><span class="ui">Network → Connect to FTP server</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>ຊື່ເມນູອາດຕ່າງກັນແຕ່ລະລຸ້ນ. ຖ້າບໍ່ພົບ, ໃຫ້ເບິ່ງຄູ່ມືກ້ອງໃນຫົວຂໍ້ "FTP".</p>
+
+  <h3>ພາບເຂົ້າມາແນວໃດ</h3>
+  <ul>
+    <li>ກ້ອງອັບໂຫຼດພາບລົງໂຟນເດີ <code>&lt;Destination&gt;/FTP Inbox</code>. ພາບຈະຖືກຍ້າຍອອກໄປໂຟນເດີປາຍທາງ ແລະ ປ່ຽນຊື່ທັນທີ, inbox ຈຶ່ງເກືອບຫວ່າງຕະຫຼອດ.</li>
+    <li>ພາບຈະຖືກນຳເຂົ້າ <strong>ກໍ່ຕໍ່ເມື່ອໂອນຄົບແລ້ວ</strong>. ພາບທີ່ໂອນບໍ່ສຳເລັດຈະບໍ່ເຂົ້າ Lightroom.</li>
+    <li>ຖ້າຊື່ໄຟລ໌ຊ້ຳ ຈະຕໍ່ທ້າຍ <code>-1</code>, <code>-2</code>… ບໍ່ມີການຂຽນທັບພາບເກົ່າ.</li>
+    <li>ຖ້າ FTP server ຢຸດກາງຄັນ, ປລັກອິນຈະເປີດໃໝ່ເອງ.</li>
+    <li>ໃນ <span class="ui">ສະແດງການຕັ້ງຄ່າຂັ້ນສູງ</span> ປ່ຽນພອດ ແລະ ໂຟນເດີ inbox ໄດ້. ຖ້າປ່ຽນພອດ, ຕ້ອງປ່ຽນໃນກ້ອງນຳ.</li>
+  </ul>
+  <div class="callout warn">
+    <span class="label">ຄວນຮູ້</span>
+    <ul>
+      <li>FTP ທຳມະດາບໍ່ເຂົ້າລະຫັດ. ໃຊ້ໃນ Wi-Fi ຂອງທ່ານເອງ ຫຼື hotspot, ຢ່າໃຊ້ Wi-Fi ສາທາລະນະ.</li>
+      <li>ໄຟລ໌ RAW ໃຫຍ່ ໃຊ້ເວລາໂອນຜ່ານ Wi-Fi ຫຼາຍວິນາທີຕໍ່ພາບ. ຖ້າຕ້ອງການໃຫ້ລູກຄ້າເຫັນໄວ, ຕັ້ງກ້ອງໃຫ້ສົ່ງສະເພາະ JPEG.</li>
+      <li>ກ່ອນຮັບງານທີ່ມີຄ່າຈ້າງ, ໃຫ້ທົດສອບກັບກ້ອງ ແລະ ເຄືອຂ່າຍທີ່ຈະໃຊ້ແທ້ກ່ອນ.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 8 -->
+<section id="lo-naming">
+  <h2><span class="num">8</span>ຕັ້ງຊື່ໄຟລ໌ ແລະ ໂຟນເດີ</h2>
+  <h3>ເລືອກຮູບແບບຊື່ໄຟລ໌</h3>
+  <p>ຊ່ອງ <span class="ui">File name</span> ໃນແຖບ Files ມີ 3 ໂໝດ:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ໂໝດ</th><th>ຜົນລັບ</th></tr></thead>
+    <tbody>
+      <tr><td>Original name from the camera</td><td class="wrap"><code>DSC00123.ARW</code> — ໃຊ້ຊື່ ແລະ ເລກຈາກກ້ອງໂດຍກົງ</td></tr>
+      <tr><td>Date and sequence</td><td class="wrap"><code>20260818-0001.ARW</code> (ຄ່າເລີ່ມຕົ້ນ)</td></tr>
+      <tr><td>Custom…</td><td class="wrap">ພິມ token ເອງໃນຊ່ອງ <span class="ui">Template</span> ທີ່ປາກົດຂຶ້ນມາ</td></tr>
+    </tbody>
+  </table></div>
+  <p>ຊ່ອງ <span class="ui">Next number</span> ສະແດງເລກລຳດັບຖັດໄປ ແລະ ແກ້ໄຂໄດ້. ຊ່ອງ <span class="ui">Session name</span> ໃຊ້ກັບ token <code>{session}</code>.</p>
+
+  <h3>Token ທີ່ໃຊ້ໄດ້</h3>
+  <p>ໃຊ້ໄດ້ທັງໃນຊ່ອງ <span class="ui">Subfolder</span> ແລະ <span class="ui">Template</span>:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Token</th><th>ຜົນລັບ</th><th>Token</th><th>ຜົນລັບ</th></tr></thead>
+    <tbody>
+      <tr><td><code>{date}</code></td><td>2026-08-18</td><td><code>{orig}</code></td><td>ຊື່ເດີມຈາກກ້ອງ</td></tr>
+      <tr><td><code>{date:%Y%m%d}</code></td><td>20260818</td><td><code>{ext}</code></td><td>ARW</td></tr>
+      <tr><td><code>{year}</code></td><td>2026</td><td><code>{lext}</code></td><td>arw</td></tr>
+      <tr><td><code>{time}</code></td><td>14-32-08</td><td><code>{camera}</code></td><td>ILCE-7M4</td></tr>
+      <tr><td><code>{seq}</code></td><td>0001</td><td><code>{vendor}</code></td><td>Sony</td></tr>
+      <tr><td><code>{seq:3}</code></td><td>001</td><td><code>{session}</code></td><td>ຊື່ເຊສຊັນທີ່ຕັ້ງໄວ້</td></tr>
+    </tbody>
+  </table></div>
+  <p>Token ທີ່ພິມຜິດຈະຖືກປະໄວ້ຕາມເດີມໃນຊື່ໄຟລ໌ (ບໍ່ຖືກລຶບ), ເພື່ອໃຫ້ເຫັນຂໍ້ຜິດພາດໄດ້ງ່າຍ.</p>
+
+  <h3>ຕົວຢ່າງ Custom ທີ່ແນະນຳ</h3>
+<pre><code>Subfolder :  {date}
+File name :  {date:%Y%m%d}-{seq:4}
+ຜົນລັບ    :  2026-08-18/20260818-0001.ARW</code></pre>
+  <div class="callout tip">
+    <span class="label">ຄວນໃສ່ {seq} ສະເໝີ</span>
+    <p>ຖ້າໃສ່ຊື່ຄົງທີ່ ເຊັ່ນ <code>A7IV</code> ຢ່າງດຽວ, ທຸກໄຟລ໌ຈະຊື່ຊ້ຳກັນ ແລ້ວຖືກຕໍ່ທ້າຍ <code>-1</code>, <code>-2</code> ໄປເລື້ອຍໆ.
+    ໃຫ້ໃຊ້ແບບ <code>A7IV-{seq:4}</code> ແທນ.</p>
+  </div>
+  <div class="callout warn">
+    <span class="label">ໂໝດ Original name</span>
+    <p>ຖ້າຟໍແມັດກາດໃໝ່ ຫຼື ໃຊ້ກ້ອງສອງໂຕ ເລກອາດຊ້ຳກັນໄດ້. ແນະນຳໃຫ້ໃຊ້ <strong>Date and sequence</strong> ສຳລັບງານທີ່ສຳຄັນ.
+    ປລັກອິນຈະບໍ່ຂຽນທັບໄຟລ໌ເດີມ.</p>
+  </div>
+  <p><strong>ໄຟລ໌ທີ່ export ຈະໃຊ້ຊື່ດຽວກັບໄຟລ໌ຕົ້ນສະບັບສະເໝີ</strong>, ເຊັ່ນ <code>DSC00123.ARW</code> → <code>DSC00123.jpg</code>. ບໍ່ຕ້ອງຕັ້ງຊ້ຳ.</p>
+</section>
+
+<!-- 9 -->
+<section id="lo-watermark">
+  <h2><span class="num">9</span>ລາຍນ້ຳ ແລະ Export Profile</h2>
+  <p>ເປີດ <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span><span class="sep">→</span><span class="ui">Export Profiles…</span></span>
+  ທີ່ນີ້ແມ່ນບ່ອນກຽມ profile ໄວ້ກ່ອນງານຖ່າຍ. Profile ດຽວກັນໃຊ້ໄດ້ທັງໃນໜ້າ Export ແລະ ການ export ອັດຕະໂນມັດ.</p>
+  <h3>ໜ້າຕ່າງ Export Profiles: 3 ຂັ້ນຕອນ</h3>
+  <ol class="steps">
+    <li><strong>ເລືອກ ຫຼື ສ້າງ profile</strong><span class="ui">ສ້າງໃໝ່…</span> · <span class="ui">ສຳເນົາ…</span> · <span class="ui">ປ່ຽນຊື່…</span> · <span class="ui">ລຶບ</span>. ຊື່ທີ່ຊ້ຳກັບ profile ທີ່ມີຢູ່ຈະບໍ່ຖືກຮັບ, ເພື່ອບໍ່ໃຫ້ຂຽນທັບ.</li>
+    <li><strong>ປັບຄ່າ</strong>ມີແຖວສະຫຼຸບຄ່າຂອງ profile ສັ້ນໆ ໃຫ້ເຫັນ.</li>
+    <li><strong>ບັນທຶກ</strong>ຖ້າຍັງບໍ່ໄດ້ບັນທຶກ ຈະຂຶ້ນ <em>"● ມີການປ່ຽນແປງທີ່ຍັງບໍ່ໄດ້ບັນທຶກ"</em>. ເມື່ອບັນທຶກແລ້ວ ຈະຂຶ້ນ <em>"✓ ບັນທຶກທຸກຢ່າງແລ້ວ"</em>.</li>
+  </ol>
+  <p><strong>ພື້ນຖານ:</strong> ປະເພດໄຟລ໌, ຄຸນນະພາບ, ຂະໜາດ (ດ້ານຍາວ), ເປີດ/ປິດລາຍນ້ຳ, ຂໍ້ຄວາມ ຫຼື ໂລໂກ້, ຕຳແໜ່ງ, ຄວາມທຶບ, ພາບຕົວຢ່າງ ແລະ ໂຟນເດີສົ່ງຂຶ້ນຄລາວ.
+  <strong>ຂັ້ນສູງ:</strong> Bit depth, Colour space, ຄວາມລະອຽດ, Sharpening, Metadata, Engine, ຟອນ, ສີ, ເງົາ, ຂະໜາດ, ໄລຍະຈາກຂອບ ແລະ ການໝຸນ.</p>
+  <p>ໃນສ່ວນ <span class="ui">ລາຍນ້ຳ</span> ມີແຖວສະຖານະເຕືອນລ່ວງໜ້າ ເຊັ່ນ ເລືອກ DNG ຊຶ່ງໃສ່ລາຍນ້ຳບໍ່ໄດ້, ຂໍ້ຄວາມຫວ່າງ, ບໍ່ພົບໄຟລ໌ໂລໂກ້, ຫຼື ເປີດລາຍນ້ຳຂອງ Lightroom ຊ້ອນກັນ.</p>
+
+
+  <div class="cards">
+    <div class="card"><h4>File Settings</h4><p>ປະເພດໄຟລ໌ (JPEG / TIFF / PNG / PSD / DNG / Original), ຄຸນນະພາບ, Bit depth, Colour space, ຄວາມລະອຽດ.</p></div>
+    <div class="card"><h4>Image Sizing</h4><p>ຫຍໍ້ຂະໜາດຕາມດ້ານຍາວ, ດ້ານສັ້ນ, ກວ້າງ×ສູງ, ເມກາພິກເຊວ ຫຼື ເປີເຊັນ. ພ້ອມ Output Sharpening.</p></div>
+    <div class="card"><h4>Metadata</h4><p>ເລືອກຂໍ້ມູນທີ່ຈະໃສ່ໃນໄຟລ໌, ລຶບຂໍ້ມູນສະຖານທີ່ (Remove location info) ແລະ ຮູບແບບ keyword.</p></div>
+  </div>
+
+  <h3>ຕັ້ງຄ່າລາຍນ້ຳ</h3>
+  <p>ໝາຍຖືກ <span class="ui">Apply a watermark</span> ແລ້ວຕັ້ງຄ່າ:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ຄ່າ</th><th>ຄວາມໝາຍ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Watermark: Text / Image</strong></td><td class="wrap">ລາຍນ້ຳເປັນຂໍ້ຄວາມ ຫຼື ໄຟລ໌ໂລໂກ້ (PNG ພື້ນໂປ່ງໃສດີທີ່ສຸດ)</td></tr>
+      <tr><td><strong>Font / Size / Colour</strong></td><td class="wrap">ຟອນ, ຂະໜາດ (% ຂອງດ້ານສັ້ນ), ສີ ແລະ <span class="ui">Drop shadow</span></td></tr>
+      <tr><td><strong>Width</strong></td><td class="wrap">ຂະໜາດໂລໂກ້ (% ຂອງຄວາມກວ້າງພາບ)</td></tr>
+      <tr><td><strong>Position</strong></td><td class="wrap">ຕາຕະລາງ 3×3 ສຳລັບເລືອກຕຳແໜ່ງ</td></tr>
+      <tr><td><strong>Opacity</strong></td><td class="wrap">ຄວາມທຶບ</td></tr>
+      <tr><td><strong>Inset</strong></td><td class="wrap">ໄລຍະຫ່າງຈາກຂອບ (% ຂອງດ້ານສັ້ນ)</td></tr>
+      <tr><td><strong>Rotate</strong></td><td class="wrap">ອົງສາການໝຸນ</td></tr>
+      <tr><td><strong>Engine</strong></td><td class="wrap">ໃຊ້ <strong>Built-in helper</strong> (ຄ່າເລີ່ມຕົ້ນ) ເພາະຮັກສາ EXIF, GPS ແລະ ໂປຣໄຟລ໌ສີໄວ້ໄດ້ດີທີ່ສຸດ</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Preview</strong> ຈະອັບເດດທັນທີທີ່ປັບຄ່າ, ໂດຍໃຊ້ພາບທີ່ເລືອກໃນ Library. ກົດ <span class="ui">Sample…</span> ເພື່ອເລືອກໄຟລ໌ເອງ
+  (ເປີດໄຟລ໌ RAW ໄດ້ໂດຍກົງ), ຫຼື <span class="ui">Selected Photo</span> ເພື່ອອ່ານພາບທີ່ເລືອກໃໝ່.
+  ຄ່າທີ່ເປັນເປີເຊັນທັງໝົດອີງໃສ່ຂະໜາດພາບ, ດັ່ງນັ້ນສິ່ງທີ່ເຫັນໃນ Preview ຄືຜົນລັບແທ້ເທິງພາບຂະໜາດເຕັມ.</p>
+
+  <h3>Token ໃນຂໍ້ຄວາມລາຍນ້ຳ</h3>
+  <p><code>{year}</code> <code>{date}</code> <code>{time}</code> <code>{orig}</code> <code>{camera}</code></p>
+  <p>ຕົວຢ່າງ: <code>© {year} ຊື່ສະຕູດິໂອ</code></p>
+
+  <div class="callout warn">
+    <span class="label">ໄຟລ໌ DNG ແລະ Original ໃສ່ລາຍນ້ຳບໍ່ໄດ້</span>
+    <p>Lightroom ພຽງແຕ່ສຳເນົາ ຫຼື ແປງໄຟລ໌ເຫຼົ່ານີ້ ໂດຍບໍ່ໄດ້ສ້າງພາບໃໝ່ ຈຶ່ງບໍ່ມີພາບໃຫ້ແຕ້ມລາຍນ້ຳລົງ. ສຳລັບລາຍນ້ຳ, ໃຫ້ໃຊ້ JPEG, TIFF, PNG ຫຼື PSD.</p>
+  </div>
+  <div class="callout tip">
+    <span class="label">ກວດກ່ອນສົ່ງໃຫ້ລູກຄ້າ</span>
+    <p>ກ່ອນເລີ່ມງານ, ໃຫ້ export ທົດລອງ 1 ພາບ ແລ້ວເປີດເບິ່ງວ່າມີລາຍນ້ຳແທ້. ຖ້າມີຂໍ້ຄວາມ “Watermarking was skipped” ໃຫ້ກວດໄຟລ໌ໂລໂກ້ ແລະ ກົດ
+    <span class="ui">Build Watermark Helper</span> ໃນ Plug-in Manager.</p>
+  </div>
+
+  <h3>ຈັດການ Profile</h3>
+  <p>ປຸ່ມ <span class="ui">New</span> / <span class="ui">Duplicate</span> / <span class="ui">Rename</span> / <span class="ui">Delete</span> / <span class="ui">Save</span> ຢູ່ດ້ານເທິງ.
+  ຖ້າປ່ຽນ profile ທັງທີ່ຍັງບໍ່ໄດ້ບັນທຶກ, ລະບົບຈະຖາມກ່ອນ.</p>
+</section>
+
+<!-- 10 -->
+<section id="lo-auto-export">
+  <h2><span class="num">10</span>Export ອັດຕະໂນມັດທຸກພາບ</h2>
+  <p>ໃນໜ້າ Tethered Capture → ແຖບ <strong>Auto-Export</strong>:</p>
+  <ol class="steps">
+    <li><strong>ໝາຍຖືກ Export every capture automatically</strong></li>
+    <li><strong>ເລືອກ Profile</strong>ກົດ <span class="ui">Edit…</span> ເພື່ອແກ້ລາຍນ້ຳໄດ້ທັນທີ.</li>
+    <li><strong>ເລືອກ Export to</strong>ໂຟນເດີປາຍທາງຂອງໄຟລ໌ທີ່ export.</li>
+  </ol>
+  <p>ທຸກຄັ້ງທີ່ກົດຊັດເຕີ ຈະໄດ້ທັງໄຟລ໌ RAW ຕົ້ນສະບັບ ແລະ ໄຟລ໌ JPEG ໃສ່ລາຍນ້ຳພ້ອມສົ່ງລູກຄ້າ.</p>
+  <p>ຊ່ອງ <span class="ui">Show with watermark</span> ໃຕ້ພາບ Preview: ເປີດໄວ້ຈະເຫັນພາບພ້ອມລາຍນ້ຳ ຕົງກັບໄຟລ໌ທີ່ລູກຄ້າຈະໄດ້ຮັບແທ້.</p>
+  <div class="callout tip">
+    <span class="label">ໝາຍເຫດ</span>
+    <p>Auto-export ເຮັດວຽກຫຼັງຈາກພາບຖືກເພີ່ມເຂົ້າແຄັດຕາລັອກ, ສະນັ້ນຕ້ອງໝາຍຖືກ <span class="ui">Add captures to the catalog</span> ໃນແຖບ On Import ນຳ.</p>
+  </div>
+</section>
+
+<!-- 11 -->
+<section id="lo-deliver">
+  <h2><span class="num">11</span>ສົ່ງໄຟລ໌ຂຶ້ນຄລາວ (Deliver)</h2>
+  <p>ສ່ວນ <strong>Thaiymuan Production — Deliver</strong> ຈະສຳເນົາທຸກໄຟລ໌ທີ່ export ແລ້ວ ເຂົ້າໂຟນເດີທີ່ແອັບຄລາວຊິງຄ໌ຢູ່
+  (Google Drive, Dropbox, iCloud Drive). ແອັບຄລາວຈະເປັນຜູ້ອັບໂຫຼດເອງ, ຈຶ່ງບໍ່ຕ້ອງລັອກອິນຫຍັງໃນປລັກອິນ.</p>
+  <ol class="steps">
+    <li><strong>ຕິດຕັ້ງ ແລະ ລັອກອິນແອັບຄລາວ</strong>ເຊັ່ນ Google Drive for desktop ຫຼື Dropbox ໃນ Mac.</li>
+    <li><strong>Detected</strong>ເລືອກໂຟນເດີຄລາວທີ່ປລັກອິນພົບໃນເຄື່ອງ, ຫຼື ກົດ <span class="ui">Choose…</span> ໃນຊ່ອງ <span class="ui">Folder</span>.</li>
+    <li><strong>Subfolder</strong>ໃຊ້ token <code>{date}</code> <code>{year}</code> <code>{orig}</code> ໄດ້, ເຊັ່ນ <code>ລູກຄ້າ/{date}</code>.</li>
+  </ol>
+  <div class="callout warn">
+    <span class="label">ຂໍ້ຈຳກັດ</span>
+    <p>ປລັກອິນຢືນຢັນໄດ້ພຽງວ່າໄຟລ໌ຖືກສຳເນົາເຂົ້າໂຟນເດີຄລາວແລ້ວ ເທົ່ານັ້ນ. ການອັບໂຫຼດຂຶ້ນເຊີບເວີແມ່ນໜ້າທີ່ຂອງແອັບຄລາວ,
+    ໃຫ້ກວດເບິ່ງສະຖານະໃນແອັບນັ້ນ.</p>
+  </div>
+  <h3>ອັບໂຫຼດຂຶ້ນເຊີບເວີ FTP / FTPS</h3>
+  <p>ສົ່ງທຸກໄຟລ໌ທີ່ export ແລ້ວ ຂຶ້ນເຊີບເວີ FTP ໂດຍກົງ ເຊັ່ນ ເຊີບເວີຂອງລູກຄ້າ, ເວັບໄຊຂອງທ່ານ ຫຼື ຮ້ານອັດຮູບ.
+  ໄຟລ໌ຍັງຖືກເກັບໄວ້ໃນໂຟນເດີ export ຄືເກົ່າ. ຕັ້ງຄ່າໄດ້ທັງໃນສ່ວນ Deliver ຂອງ Export ແລະ ໃນໜ້າຕ່າງ <span class="ui">Export Profiles…</span>.</p>
+  <ol class="steps">
+    <li><strong>ໝາຍຖືກ ອັບໂຫຼດຂຶ້ນເຊີບເວີ FTP</strong></li>
+    <li><strong>ໂປໂຕຄອນ</strong><code>FTPS (ເຂົ້າລະຫັດ)</code> ຖ້າເຊີບເວີຮອງຮັບ (ອາດເອີ້ນວ່າ "FTP over TLS"), ບໍ່ດັ່ງນັ້ນ <code>FTP</code>.</li>
+    <li><strong>ເຊີບເວີ, ຊື່ຜູ້ໃຊ້ ແລະ ລະຫັດຜ່ານ</strong>ເຊັ່ນ <code>ftp.example.com</code> (ບໍ່ຕ້ອງໃສ່ <code>ftp://</code>). ລະຫັດຜ່ານເກັບໄວ້ໃນ keychain ຂອງ macOS, ບໍ່ຢູ່ໃນ Profile ແລະ ບໍ່ຂຶ້ນໃນ log.</li>
+    <li><strong>ໂຟນເດີເທິງເຊີບເວີ</strong>ເຊັ່ນ <code>/{date}</code> ຫຼື <code>/ລູກຄ້າ/{year}/{date}</code>. ໂຟນເດີທີ່ຍັງບໍ່ມີຈະຖືກສ້າງໃຫ້.</li>
+    <li><strong>ກົດ ທົດສອບການເຊື່ອມຕໍ່</strong>ເຂົ້າສູ່ລະບົບ ແລະ ກວດໂຟນເດີ ໂດຍບໍ່ອັບໂຫຼດຫຍັງ.</li>
+  </ol>
+  <p>ໃນການຕັ້ງຄ່າຂັ້ນສູງ: <span class="ui">ພອດ</span> (ປົກກະຕິ 21) ແລະ <span class="ui">ໂໝດ Passive</span> (ເປີດໄວ້, ເວັ້ນແຕ່ເຊີບເວີບອກໃຫ້ໃຊ້ active mode).</p>
+  <div class="callout tip">
+    <span class="label">ຕອນຖ່າຍ tether</span>
+    <p>Export ອັດຕະໂນມັດກໍອັບໂຫຼດນຳ. ຖ້າອັບໂຫຼດບໍ່ສຳເລັດ ຈະບໍ່ມີໜ້າຕ່າງເດັ້ງຂຶ້ນມາຂັດຈັງຫວະ: ຂໍ້ຄວາມຈະຂຶ້ນໃນແຖວສະຖານະຂອງໜ້າຕ່າງຖ່າຍແທນ,
+    ແລະ ໄຟລ໌ຍັງຢູ່ຄົບໃນໂຟນເດີ export. <strong>ບໍ່ຮອງຮັບ SFTP.</strong></p>
+  </div>
+</section>
+
+<!-- 12 -->
+<section id="lo-interval">
+  <h2><span class="num">12</span>ຖ່າຍອັດຕະໂນມັດຕາມໄລຍະເວລາ</h2>
+  <p>ແຖບ <strong>Camera</strong> → ຊ່ອງ <span class="ui">Shutter</span> ເລືອກ <code>Fire automatically every N seconds</code>:</p>
+  <p><strong>ກ່ອນອື່ນ</strong> ໝາຍຖືກ ☑ <span class="ui">ສະແດງການຕັ້ງຄ່າຂັ້ນສູງ</span> ໃນແຖບ <span class="ui">1 · ກ້ອງ</span> ເພາະການຕັ້ງຄ່ານີ້ເປັນຂັ້ນສູງ.</p>
+<pre><code>Every: [10] seconds, [0] frames</code></pre>
+  <ul>
+    <li><strong>frames = 0</strong> ໝາຍເຖິງຖ່າຍໄປເລື້ອຍໆ ຈົນກວ່າຈະກົດ Stop.</li>
+    <li>ກ້ອງຕ້ອງໂຟກັສໄດ້, ບໍ່ດັ່ງນັ້ນຈະບໍ່ລັ່ນຊັດເຕີ. <strong>Time-lapse ຄວນໃຊ້ MF (ໂຟກັສດ້ວຍມື)</strong>.</li>
+    <li>ແຕ່ລະພາບໃຊ້ເວລາໂອນບໍ່ເທົ່າໃດວິນາທີ. ຖ້າຕັ້ງໄລຍະສັ້ນເກີນໄປ, ຈັງຫວະຈະຄາດເຄື່ອນ.</li>
+  </ul>
+  <div class="callout tip">
+    <span class="label">ແນະນຳ</span>
+    <p>ໃຫ້ຕັ້ງ <strong>frames = 0</strong> ແລ້ວກົດ <span class="ui">Stop Capture</span> ເອງເມື່ອໄດ້ຈຳນວນພາບທີ່ຕ້ອງການ.
+    ໃນລຸ້ນປັດຈຸບັນ, ຖ້າກຳນົດຈຳນວນພາບ ແລະ ເປີດ <span class="ui">Reconnect…</span> ໄວ້, ລະບົບອາດຈະເລີ່ມຖ່າຍຊຸດໃໝ່ຕໍ່ເອງ.</p>
+  </div>
+  <p>ຄ່າເລີ່ມຕົ້ນແມ່ນ <code>Wait for me to press the shutter</code> (ກົດເອງ). ຖ້າບໍ່ແຕະ, ກໍ່ເຮັດວຽກຄືເກົ່າ.</p>
+</section>
+
+<!-- 13 -->
+<section id="lo-export">
+  <h2><span class="num">13</span>Export ແບບປົກກະຕິ</h2>
+  <p>ໃຊ້ກັບພາບທີ່ມີຢູ່ແລ້ວໃນແຄັດຕາລັອກ:</p>
+  <ol class="steps">
+    <li><strong>ເລືອກພາບ</strong>ໃນ Library.</li>
+    <li><strong>File → Export…</strong></li>
+    <li><strong>Export To</strong>ເລືອກ <code>Thaiymuan Production</code>.</li>
+    <li><strong>Profile</strong>ແຖວດ້ານເທິງໃຊ້ <span class="ui">Load</span> / <span class="ui">Save</span> ຄ່າເປັນ profile ໄດ້.</li>
+  </ol>
+  <p>ພາແນລ <strong>Export Location / File Naming / Watermarking / Post-Processing</strong> ຂອງ Lightroom ຍັງໃຊ້ໄດ້ຕາມປົກກະຕິ.
+  ສ່ວນ File Settings / Image Sizing / Sharpening / Metadata ຈະຖືກແທນດ້ວຍຂອງປລັກອິນ (ເພື່ອໃຊ້ຄ່າຊຸດດຽວກັນກັບ auto-export).</p>
+  <div class="callout warn">
+    <span class="label">ຢ່າເປີດລາຍນ້ຳສອງບ່ອນ</span>
+    <p>ຖ້າເປີດລາຍນ້ຳຂອງປລັກອິນແລ້ວ, ໃຫ້ປິດພາແນລ <span class="ui">Watermarking</span> ຂອງ Lightroom ເອງ. ບໍ່ດັ່ງນັ້ນ ພາບຈະມີລາຍນ້ຳສອງອັນ.</p>
+  </div>
+
+  <h3>ເປີດສະໄລໂຊຫຼັງ export</h3>
+  <p>ໝາຍຖືກ <span class="ui">Show the photos as a slideshow when the export finishes</span>. Lightroom ຈະສະຫຼັບໄປໂມດູນ
+  <strong>Slideshow</strong> ພ້ອມເລືອກພາບທີ່ export ໄວ້ໃຫ້, ແລ້ວ <strong>ກົດ Play ເອງ</strong>.</p>
+  <p class="path">ສະໄລໂຊຈະສະແດງພາບຕົ້ນສະບັບໃນແຄັດຕາລັອກ, ບໍ່ແມ່ນໄຟລ໌ JPEG ທີ່ export ອອກໄປ.</p>
+</section>
+
+<!-- 14 -->
+<section id="lo-troubleshoot">
+  <h2><span class="num">14</span>ແກ້ໄຂບັນຫາ</h2>
+  <p>ເປີດ <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span><span class="sep">→</span><span class="ui">Camera Diagnostics…</span></span> ລະບົບຈະກວດ 5 ຂໍ້ຕາມລຳດັບທີ່ຄວນແກ້:
+  <strong>1</strong> gPhoto2 → <strong>2</strong> ບໍລິການກ້ອງຂອງ macOS → <strong>3</strong> ກ້ອງທີ່ຕໍ່ຢູ່ → <strong>4</strong> ການຖ່າຍຈາກຄອມ → <strong>5</strong> ໂປຣແກຣມຊ່ວຍໃສ່ລາຍນ້ຳ.
+  ແຕ່ລະຂໍ້ສະແດງ ✓ / ! / ✕, ສິ່ງທີ່ພົບ ແລະ <strong>ວິທີແກ້</strong>. ເທິງສຸດສະຫຼຸບວ່າ "ທຸກຢ່າງປົກກະຕິ" ຫຼື ພົບບັນຫາຈັກຂໍ້.
+  ປຸ່ມ <span class="ui">Release Camera</span> ຈະປ່ອຍກ້ອງຄືນຈາກ macOS. ຖ້າຍັງປ່ອຍບໍ່ໄດ້ ຈະບອກຄຳສັ່ງ <code>sudo killall …</code> ໃຫ້.
+  ປຸ່ມ <span class="ui">Save Report</span> ບັນທຶກລາຍງານໄວ້ໃນ Desktop. ລາຍລະອຽດທາງເທັກນິກຢູ່ໃນ "ສະແດງລາຍລະອຽດທາງເທັກນິກ".</p>
+
+  <h3>ກ້ອງບໍ່ຂຶ້ນຕອນກົດ Detect</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ສາເຫດ</th><th>ວິທີແກ້</th></tr></thead>
+    <tbody>
+      <tr><td>ຍັງບໍ່ໄດ້ຕິດຕັ້ງ gPhoto2</td><td class="wrap"><code>brew install gphoto2</code></td></tr>
+      <tr><td>macOS ແຍ່ງກ້ອງໄວ້</td><td class="wrap">Diagnostics → <span class="ui">Release Camera</span> ຫຼື ແລ່ນ <code>sudo killall ptpcamerad</code></td></tr>
+      <tr><td>ກ້ອງນອນ / ປິດຢູ່</td><td class="wrap">ເປີດກ້ອງ ແລ້ວກົດ Detect ໃໝ່</td></tr>
+      <tr><td>ສາຍ USB-C ສາກໄຟຢ່າງດຽວ</td><td class="wrap">ປ່ຽນເປັນສາຍທີ່ສົ່ງຂໍ້ມູນໄດ້</td></tr>
+      <tr><td>ໂໝດ USB ຜິດ</td><td class="wrap">ເບິ່ງຫົວຂໍ້ <a href="#lo-camera-setup">3</a></td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">
+    <span class="label">ໝາຍເຫດສຳຄັນ</span>
+    <p>ຂໍ້ຄວາມ error ຂອງ gPhoto2 ຈະບອກໃຫ້ປິດ “PTPCamera” ເຊິ່ງເປັນຊື່ເກົ່າທີ່ບໍ່ມີແລ້ວໃນ macOS ລຸ້ນໃໝ່.
+    ໂຕຈິງຊື່ <strong><code>ptpcamerad</code></strong>, ຄຳແນະນຳສ່ວນຫຼາຍໃນອິນເຕີເນັດຈຶ່ງໃຊ້ບໍ່ໄດ້.</p>
+  </div>
+
+  <h3>ຂຶ້ນ “Could not claim the USB device” (-53)</h3>
+  <p>ເກີດຈາກການເຊື່ອມຕໍ່ຄັ້ງກ່ອນຍັງຄ້າງຢູ່. ເຮັດຕາມລຳດັບ:</p>
+  <ol>
+    <li><strong>ຖອດສາຍ USB ແລ້ວສຽບໃໝ່</strong> — ແກ້ໄດ້ເກືອບທຸກຄັ້ງ</li>
+    <li>ປິດ-ເປີດກ້ອງ</li>
+    <li>ປິດແອັບ Photos, Image Capture, Imaging Edge, EOS Utility</li>
+    <li><code>sudo killall ptpcamerad</code></li>
+  </ol>
+
+  <h3>ສະຖານະຂຶ້ນ Live ແຕ່ບໍ່ມີພາບເຂົ້າມາ</h3>
+  <ol>
+    <li>ກວດ <strong>Still Img. Save Dest.</strong> ທີ່ກ້ອງ ຕ້ອງເປັນ PC+Camera (Sony).</li>
+    <li>ແຖບ Camera → <span class="ui">Capture events</span> ປ່ຽນເປັນ <code>Any new image (Sony)</code>.
+      ກ້ອງ Sony ຕ້ອງໃຊ້ໂໝດນີ້; ຖ້າໃຊ້ໂໝດອື່ນ ຈະບໍ່ໄດ້ໄຟລ໌ເລີຍ ທັງທີ່ເບິ່ງຄືເຮັດວຽກປົກກະຕິ.</li>
+    <li>ເບິ່ງ log ວ່າມີແຖວ <code>new capture in spool</code> ຫຼືບໍ່.</li>
+  </ol>
+
+  <h3>ບັນຫາອື່ນໆ</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ອາການ</th><th>ວິທີແກ້</th></tr></thead>
+    <tbody>
+      <tr><td>ພາບເຂົ້າໂຟນເດີແຕ່ບໍ່ເຂົ້າ Lightroom</td><td class="wrap">ໝາຍຖືກ <span class="ui">Add captures to the catalog</span> ໃນແຖບ On Import</td></tr>
+      <tr><td>ປິດ Lightroom ບໍ່ໄດ້</td><td class="wrap">ໜ້າຕ່າງ Tethered Capture ເປີດຄ້າງຢູ່, ກົດ <span class="ui">Close</span> ກ່ອນ</td></tr>
+      <tr><td>ບໍ່ເຫັນເມນູ Plug-in Extras</td><td class="wrap">ຢູ່ຜິດໂມດູນ, ກົດ <kbd>G</kbd> ກັບມາທີ່ Library</td></tr>
+      <tr><td>ປລັກອິນບໍ່ຢູ່ໃນລາຍການ</td><td class="wrap"><span class="ui">File → Plug-in Manager → Add</span> ແລ້ວເລືອກໂຟນເດີ <code>ThaiymuanProduction.lrplugin</code></td></tr>
+      <tr><td>“The watermark helper has not been built”</td><td class="wrap">Plug-in Manager → <span class="ui">Build Watermark Helper</span> (ຕ້ອງມີ <code>xcode-select --install</code>)</td></tr>
+      <tr><td>ກ້ອງຍັງຖືກຄອບຄອງຫຼັງປິດ Lightroom</td><td class="wrap">ກົດ <span class="ui">Stop Capture</span> ແລະ <span class="ui">Close</span> ກ່ອນປິດ Lightroom ທຸກຄັ້ງ. ຖ້າຍັງຄ້າງ, ຖອດສາຍ USB ແລ້ວສຽບໃໝ່.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>FTP (Wi-Fi ແລະ ການອັບໂຫຼດ)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ອາການ</th><th>ວິທີແກ້</th></tr></thead>
+    <tbody>
+      <tr><td>ກ້ອງເຊື່ອມຕໍ່ FTP ບໍ່ໄດ້</td><td class="wrap">ກວດວ່າຢູ່ Wi-Fi ດຽວກັນ ແລະ IP ໃນກ້ອງຕົງກັບໜ້າຕ່າງ (IP ອາດປ່ຽນເມື່ອຕໍ່ Wi-Fi ໃໝ່). ກວດ <span class="ui">System Settings → Network → Firewall</span> ວ່າ <code>tsftpd</code> ຖືກອະນຸຍາດ.</td></tr>
+      <tr><td>ກ້ອງແຈ້ງວ່າເຂົ້າສູ່ລະບົບບໍ່ໄດ້</td><td class="wrap">ພິມຊື່ຜູ້ໃຊ້ ແລະ ລະຫັດຜ່ານໃໝ່ໃຫ້ຕົງກັບໜ້າຕ່າງ. ຫຼັງກົດ <span class="ui">ລະຫັດຜ່ານໃໝ່</span> ຕ້ອງໃສ່ລະຫັດໃໝ່ໃນກ້ອງທຸກຄັ້ງ.</td></tr>
+      <tr><td>"ພອດ 2121 ມີໂປຣແກຣມອື່ນໃຊ້ຢູ່ແລ້ວ"</td><td class="wrap">ເລືອກພອດອື່ນໃນການຕັ້ງຄ່າຂັ້ນສູງ (ເຊັ່ນ 2122) ແລ້ວໃສ່ພອດດຽວກັນໃນກ້ອງ.</td></tr>
+      <tr><td>ເຊື່ອມຕໍ່ແລ້ວ ແຕ່ບໍ່ມີພາບເຂົ້າ</td><td class="wrap">ເປີດການສົ່ງອັດຕະໂນມັດ (auto transfer) ໃນກ້ອງ, ແລະ ກວດວ່າ Directory ແມ່ນ <code>/</code> ຫຼື ຫວ່າງ.</td></tr>
+      <tr><td>"The FTP server (tsftpd) is missing"</td><td class="wrap">ຕິດຕັ້ງປລັກອິນໃໝ່ ຫຼື Plug-in Manager → <span class="ui">Build Watermark Helper</span> (ສ້າງ FTP server ໃໝ່ນຳ).</td></tr>
+      <tr><td>ອັບໂຫຼດບໍ່ສຳເລັດ</td><td class="wrap">ອ່ານຂໍ້ຄວາມ error (ບອກສາເຫດເປັນພາສາທີ່ເລືອກ) ແລ້ວກົດ <span class="ui">ທົດສອບການເຊື່ອມຕໍ່</span>. ໄຟລ໌ຍັງຢູ່ໃນໂຟນເດີ export.</td></tr>
+      <tr><td>FTPS: ກວດໃບຮັບຮອງບໍ່ໄດ້</td><td class="wrap">ໃຊ້ຊື່ເຊີບເວີຕາມທີ່ຜູ້ໃຫ້ບໍລິການແຈ້ງແທ້ໆ (ບໍ່ແມ່ນ IP), ຫຼື ຖາມເຂົາເຈົ້າເລື່ອງໃບຮັບຮອງ.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>ໄຟລ໌ Log</h3>
+<pre><code>~/Library/Logs/Thaiymuan Production/thaiymuan-production.log</code></pre>
+  <p>ກົດປຸ່ມ <span class="ui">Open Log</span> ໃນໜ້າ Tethered Capture ໄດ້ເລີຍ. ເວລາແຈ້ງບັນຫາ, ແນບໄຟລ໌ນີ້ມາພ້ອມຈະຊ່ວຍໄດ້ຫຼາຍ.</p>
+</section>
+
+<!-- 15 -->
+<section id="lo-reference">
+  <h2><span class="num">15</span>ຕາຕະລາງອ້າງອີງດ່ວນ</h2>
+  <h3>ລຳດັບການເຮັດວຽກປົກກະຕິ</h3>
+  <ol class="quick-flow">
+    <li>ເປີດກ້ອງ, ສຽບ USB</li>
+    <li>Library → Tethered Capture</li>
+    <li>ແຖບ 1 · ກ້ອງ → ລໍກ້ອງຂຶ້ນ</li>
+    <li>ແຖບ 2 · ໄຟລ໌ → ໂຟນເດີປາຍທາງ</li>
+    <li>ແຖບ 4 · Export ອັດຕະໂນມັດ (ຖ້າຕ້ອງການ)</li>
+    <li>ກວດລາຍການ 5 ໃຫ້ບໍ່ມີ ✕</li>
+    <li>ກົດ ເລີ່ມຖ່າຍ ແລ້ວຖ່າຍ</li>
+    <li>ຢຸດຖ່າຍ ແລ້ວ ປິດ</li>
+  </ol>
+
+  <h3>ໄຟລ໌ໄປຢູ່ໃສ</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ຫຍັງ</th><th>ຢູ່ໃສ</th></tr></thead>
+    <tbody>
+      <tr><td>ໄຟລ໌ຕົ້ນສະບັບ</td><td class="wrap">ໂຟນເດີ Destination + Subfolder</td></tr>
+      <tr><td>ໄຟລ໌ export</td><td class="wrap">ໂຟນເດີ Export to</td></tr>
+      <tr><td>ໄຟລ໌ພັກຊົ່ວຄາວ</td><td class="wrap"><code>&lt;Destination&gt;/.tetherstudio/spool</code> (ລ້າງອັດຕະໂນມັດ)</td></tr>
+      <tr><td>FTP inbox (Wi-Fi)</td><td class="wrap"><code>&lt;Destination&gt;/FTP Inbox</code> (ພາບຖືກຍ້າຍອອກທັນທີ)</td></tr>
+      <tr><td>Log ຂອງ FTP server</td><td class="wrap"><code>&lt;Destination&gt;/.tetherstudio/tsftpd.log</code></td></tr>
+      <tr><td>Log</td><td class="wrap"><code>~/Library/Logs/Thaiymuan Production/thaiymuan-production.log</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>ກ້ອງ Sony ທີ່ຕໍ່ USB ໂດຍກົງໄດ້</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ລຸ້ນ</th><th>ຕໍ່ໂດຍກົງ</th></tr></thead>
+    <tbody>
+      <tr><td class="wrap">A7 IV, A7R V, A1 II, A6700, FX3</td><td class="wrap"><strong>ໄດ້</strong></td></tr>
+      <tr><td class="wrap">A1, A9 III, A7S III</td><td class="wrap">ໜ້າຈະໄດ້, ຍັງບໍ່ໄດ້ຢືນຢັນ</td></tr>
+      <tr><td class="wrap">A7C II, A7CR, ZV-E1, FX30</td><td class="wrap">ບໍ່ໄດ້ — ໃຊ້ <a href="#lo-watched-folder">Watched folder</a></td></tr>
+    </tbody>
+  </table></div>
+  <p>ລຸ້ນທີ່ຕໍ່ໂດຍກົງບໍ່ໄດ້ ໃຫ້ໃຊ້ Imaging Edge Desktop ຄູ່ກັບໂໝດ Watched folder. ໄດ້ຜົນຄືກັນທຸກຢ່າງ ທັງການຕັ້ງຊື່, preset ແລະ auto-export.
+  ກ່ອນຮັບງານທີ່ມີຄ່າຈ້າງ, ໃຫ້ທົດສອບກັບກ້ອງຂອງທ່ານກ່ອນສະເໝີ.</p>
+</section>
+
+<footer>
+  ສະຫງວນລິຂະສິດ © 2026 Thaiymuan Production · ພັດທະນາໂດຍ Kongjai Sayavong ·
+  <a href="https://thaiymuan.com">thaiymuan.com</a>
+</footer>
+</div>
+
+<div class="doc" data-lang="th" lang="th">
+<header class="hero">
+  <p class="eyebrow">คู่มือการใช้งาน · เวอร์ชัน 1.2</p>
+  <h1>Thaiymuan Production</h1>
+  <p class="lede">ปลั๊กอินสำหรับ <strong>Adobe Lightroom Classic</strong> ถ่ายภาพต่อสาย (tether) จากกล้อง
+  Canon, Nikon และ Sony ผ่านสาย USB หรือ Wi-Fi เข้า Lightroom อัตโนมัติ พร้อม export ใส่ลายน้ำทันทีที่กดชัตเตอร์</p>
+  <ul class="flow" aria-label="ขั้นตอนการทำงาน">
+    <li>กดชัตเตอร์</li><li class="arrow">→</li>
+    <li>ดาวน์โหลดจากกล้อง</li><li class="arrow">→</li>
+    <li>จัดเก็บเข้าโฟลเดอร์</li><li class="arrow">→</li>
+    <li>เข้า Lightroom</li><li class="arrow">→</li>
+    <li>Export ใส่ลายน้ำ</li>
+  </ul>
+  <p class="meta">สงวนลิขสิทธิ์ © 2026 Thaiymuan Production · พัฒนาโดย Kongjai Sayavong</p>
+</header>
+
+<section id="th-requirements">
+  <h2><span class="num">1</span>สิ่งที่ต้องมี</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>รายการ</th><th>หมายเหตุ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Lightroom Classic 10 ขึ้นไป</strong></td><td class="wrap">จำเป็น Lightroom ตัวคลาวด์ (ไม่ใช่ Classic) ไม่รองรับปลั๊กอิน จึงทำ tether ไม่ได้เลย</td></tr>
+      <tr><td><strong>macOS 11 ขึ้นไป</strong></td><td class="wrap">ปลั๊กอินนี้ใช้ได้เฉพาะ Mac</td></tr>
+      <tr><td><strong>Xcode Command Line Tools</strong></td><td class="wrap">ติดตั้งครั้งเดียวด้วย <code>xcode-select --install</code> ใช้สร้างโปรแกรมช่วยใส่ลายน้ำ</td></tr>
+      <tr><td><strong>gPhoto2</strong></td><td class="wrap"><code>brew install gphoto2</code> จำเป็นถ้าต่อกล้องผ่าน USB โดยตรง</td></tr>
+      <tr><td>กล้องที่ส่งภาพผ่าน FTP ได้ <span class="path">(ไม่บังคับ)</span></td><td class="wrap">สำหรับถ่ายผ่าน Wi-Fi โดยไม่ใช้สาย ไม่ต้องใช้ gPhoto2 เพราะมี FTP server ในปลั๊กอินแล้ว (ดูหัวข้อ <a href="#th-wifi-ftp">7</a>)</td></tr>
+      <tr><td>ImageMagick <span class="path">(ไม่บังคับ)</span></td><td class="wrap"><code>brew install imagemagick</code> เป็นทางเลือกสำรองสำหรับใส่ลายน้ำ</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">
+    <span class="label">ไม่อยากติดตั้ง gPhoto2?</span>
+    <p>ยังใช้งานได้ผ่านโหมด <a href="#th-watched-folder">Watched folder</a> โดยให้แอปของผู้ผลิตกล้อง
+    (Sony Imaging Edge, Canon EOS Utility, Nikon NX Tether) เป็นตัวดึงภาพ แล้วปลั๊กอินคอยดูโฟลเดอร์นั้นแทน</p>
+  </div>
+</section>
+
+<section id="th-install">
+  <h2><span class="num">2</span>ติดตั้ง</h2>
+  <ol class="steps">
+    <li><strong>เปิด Terminal แล้วรันสคริปต์ติดตั้ง</strong>
+<pre><code>cd lightroom-tether-studio
+./install.sh</code></pre>
+      สคริปต์จะคอมไพล์โปรแกรมช่วยใส่ลายน้ำ แล้วเชื่อมปลั๊กอินเข้าโฟลเดอร์ปลั๊กอินของ Lightroom
+    </li>
+    <li><strong>ติดตั้ง gPhoto2</strong> (ถ้ายังไม่มี และจะต่อกล้องผ่าน USB)
+<pre><code>./scripts/install-deps.sh --gphoto2</code></pre>
+    </li>
+    <li><strong>ตรวจใน Lightroom Classic</strong>
+      <p>ไปที่ <span class="path"><span class="ui">File</span><span class="sep">→</span><span class="ui">Plug-in Manager</span></span>
+      ต้องเห็น <strong>Thaiymuan Production</strong> ในรายการ ถ้าไม่เห็น ให้กด <span class="ui">Add</span> แล้วเลือกโฟลเดอร์
+      <code>ThaiymuanProduction.lrplugin</code></p>
+    </li>
+  </ol>
+  <div class="callout warn">
+    <span class="label">ถ้า Lightroom มองไม่เห็นปลั๊กอิน</span>
+    <p>บางครั้ง Lightroom ไม่อ่าน symlink ให้ติดตั้งแบบคัดลอกแทนด้วย <code>./install.sh --copy</code></p>
+  </div>
+  <p><strong>ถอนการติดตั้ง:</strong> <code>./install.sh --uninstall</code></p>
+</section>
+
+<section id="th-camera-setup">
+  <h2><span class="num">3</span>ตั้งค่ากล้องก่อนใช้ครั้งแรก</h2>
+  <p>ขั้นนี้ <strong>สำคัญที่สุด</strong> ถ้าตั้งผิด กล้องจะต่อไม่ติดหรือไม่ส่งภาพมาให้</p>
+  <div class="camera-tabs">
+    <div class="camera">
+      <h4>Sony <small>A7 III, A7 IV, A7R V, A1 II, A6700, FX3</small></h4>
+<pre><code>MENU → Setup (ไอคอนกระเป๋า) → USB Connection → PC Remote
+MENU → Setup → PC Remote Settings → Still Img. Save Dest. → PC+Camera</code></pre>
+      <ul>
+        <li>ถ้าเป็น <strong>Auto / Mass Storage / MTP</strong> คอมจะเห็นกล้องแต่กล้องจะไม่ส่งภาพมา</li>
+        <li>ถ้า Save Dest. เป็น <strong>Camera Only</strong> กล้องจะถ่ายได้แต่ไม่ส่งไฟล์มาที่คอม</li>
+      </ul>
+    </div>
+    <div class="camera">
+      <h4>Canon</h4>
+      <p>ตั้งกล้องเป็นโหมดถ่ายภาพนิ่ง (ไม่ใช่วิดีโอ)</p>
+    </div>
+    <div class="camera">
+      <h4>Nikon</h4>
+      <p>ตั้ง USB เป็น <strong>MTP/PTP</strong> (ไม่ใช่ Mass Storage) และปิด Wi-Fi / Bluetooth ก่อน เพราะจะแย่งการเชื่อมต่อ USB</p>
+    </div>
+  </div>
+</section>
+
+<section id="th-open">
+  <h2><span class="num">4</span>เปิดใช้งานปลั๊กอิน</h2>
+  <p>ต้องอยู่ที่โมดูล <strong>Library</strong> ก่อน (กด <kbd>G</kbd>) แล้วไปที่
+  <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span></span> จะเห็น 3 เมนู:</p>
+  <div class="cards">
+    <div class="card"><span class="tag">หน้าจอหลัก</span><h4>Tethered Capture…</h4><p>หน้าจอถ่ายภาพแบบต่อสาย</p></div>
+    <div class="card"><span class="tag">ตั้งค่า</span><h4>Export Profiles…</h4><p>ตั้งค่าลายน้ำ ขนาดภาพ และชนิดไฟล์</p></div>
+    <div class="card"><span class="tag">ตรวจปัญหา</span><h4>Camera Diagnostics…</h4><p>ตรวจหาสาเหตุเมื่อกล้องต่อไม่ติด</p></div>
+  </div>
+  <p>ส่วนตั้งค่าเครื่องมือและปุ่ม <span class="ui">Build Watermark Helper</span> อยู่ที่
+  <span class="path"><span class="ui">File</span><span class="sep">→</span><span class="ui">Plug-in Manager</span><span class="sep">→</span><span class="ui">Thaiymuan Production</span></span></p>
+  <div class="callout tip">
+    <span class="label">ไม่เห็นเมนู Plug-in Extras?</span>
+    <p>แปลว่าอยู่ผิดโมดูล กด <kbd>G</kbd> เพื่อกลับมาที่ Library</p>
+  </div>
+
+  <h3>เปลี่ยนภาษาของหน้าจอ</h3>
+  <p>หน้าจอของปลั๊กอินมี 3 ภาษา: <strong>ລາວ</strong> (ค่าเริ่มต้น), <strong>ไทย</strong> และ <strong>English</strong> เลือกได้จากช่อง <span class="ui">ภาษา</span> ที่อยู่บนสุดของ:</p>
+  <ul>
+    <li><span class="path"><span class="ui">File</span><span class="sep">→</span><span class="ui">Plug-in Manager</span><span class="sep">→</span><span class="ui">Thaiymuan Production</span></span> (ที่หลัก)</li>
+    <li>หน้าต่าง Tethered Capture และหน้าต่าง Export Profiles</li>
+  </ul>
+  <p>ภาษาใหม่จะมีผล <strong>เมื่อเปิดหน้าต่างครั้งถัดไป</strong> เมนูใน <span class="ui">Plug-in Extras</span> เป็นภาษาอังกฤษเสมอ เพราะ Lightroom เป็นผู้แสดง</p>
+
+  <h3>การตั้งค่าพื้นฐานและขั้นสูง</h3>
+  <p>ทุกหน้าต่างแสดงเฉพาะการตั้งค่าที่งานถ่ายส่วนใหญ่ต้องใช้ ที่เหลือซ่อนไว้ใน ☐ <span class="ui">แสดงการตั้งค่าขั้นสูง</span> ค่าที่ซ่อนไว้ <strong>ไม่ถูกลบและยังทำงานอยู่</strong> แต่ละแท็บมีบรรทัดสีเทาบอกว่าซ่อนอะไรไว้</p>
+</section>
+
+<section id="th-tether">
+  <h2><span class="num">5</span>ถ่าย Tether ทีละขั้น</h2>
+  <p>เปิด <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span><span class="sep">→</span><span class="ui">Tethered Capture…</span></span> แท็บเรียงตามลำดับการทำงาน:
+  <span class="ui">1 · กล้อง</span> → <span class="ui">2 · ไฟล์</span> → <span class="ui">3 · ตอนนำเข้า</span> → <span class="ui">4 · Export อัตโนมัติ</span> ข้างปุ่มเริ่มมีรายการตรวจ <span class="ui">5 · ตรวจ แล้วเริ่มถ่าย</span></p>
+  <div class="callout tip">
+    <span class="label">ชื่อปุ่มในคู่มือนี้</span>
+    <p>ใช้ชื่อตามหน้าจอภาษาไทย ชื่อภาษาอังกฤษอยู่ในวงเล็บ เช่น <span class="ui">เริ่มถ่าย</span> (Start Capture)</p>
+  </div>
+
+  <h3>แท็บ 1 · กล้อง</h3>
+  <ol class="steps">
+    <li><strong>แหล่งภาพ (Source)</strong>เลือก <span class="ui">กล้องผ่านสาย USB (gPhoto2)</span> หรือ <code>Watched folder</code> ถ้าใช้แอปของผู้ผลิตกล้อง (ดูหัวข้อ <a href="#th-watched-folder">6</a>) ถ้าถ่ายผ่าน Wi-Fi เลือก <span class="ui">กล้องผ่าน Wi-Fi (FTP)</span> (ดูหัวข้อ <a href="#th-wifi-ftp">7</a>)</li>
+    <li><strong>กล้องจะขึ้นเอง</strong>เสียบสาย USB แล้วรอ 1–3 วินาที ชื่อกล้องจะขึ้นในช่อง <span class="ui">Camera</span>
+      <ul>
+        <li>☑ <span class="ui">อัตโนมัติ</span> (Auto) คอยสแกนหากล้องอยู่ตลอด</li>
+        <li>ปุ่ม <span class="ui">ค้นหากล้อง</span> (Detect) สแกนทันที</li>
+      </ul>
+    </li>
+  </ol>
+  <p>ใน <strong>การตั้งค่าขั้นสูง</strong> ของแท็บนี้ (ค่าเริ่มต้นใช้ได้เลย):</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>การตั้งค่า</th><th>ค่าเริ่มต้นและเมื่อไรควรเปลี่ยน</th></tr></thead>
+    <tbody>
+      <tr><td>ต่อกลับอัตโนมัติ (Reconnect…)</td><td class="wrap">เปิด สายหลุดหรือเปลี่ยนแบต ระบบจะต่อกลับเอง ภาพที่ค้างอยู่ไม่หาย</td></tr>
+      <tr><td>แจ้งเตือนด้วย (Announce with)</td><td class="wrap">ข้อความเล็ก ๆ ที่หายเอง เปลี่ยนเป็นหน้าต่างแจ้งเตือนหรือปิดก็ได้</td></tr>
+      <tr><td>วิธีรับภาพ (Capture events)</td><td class="wrap">อัตโนมัติ (ตามยี่ห้อกล้อง) เปลี่ยนเป็น <code>Any new image (Sony)</code> ถ้าขึ้น Live แต่ไม่มีภาพเข้า</td></tr>
+      <tr><td>ถ่ายตามเวลา (Shutter)</td><td class="wrap">กดเอง ดูหัวข้อ <a href="#th-interval">12</a></td></tr>
+      <tr><td>ตรวจทุก / ขนาดภาพ / ประเภทไฟล์</td><td class="wrap">0.4 วินาที / 900 px / ไฟล์ RAW และ JPEG ทั่วไป</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>แท็บ 2 · ไฟล์</h3>
+  <ul>
+    <li><span class="ui">โฟลเดอร์ปลายทาง</span> (Destination): ที่เก็บภาพ ถ้ายังว่าง จะเสนอ <code>~/Pictures/Thaiymuan Tether</code> ให้ โฟลเดอร์จะถูกสร้างตอนเริ่มถ่าย</li>
+    <li>รูปแบบ <strong>ชื่อไฟล์</strong>: ดูหัวข้อ <a href="#th-naming">8</a> บรรทัด <span class="ui">Example</span> แสดงชื่อไฟล์ถัดไป</li>
+    <li>ในการตั้งค่าขั้นสูง: <span class="ui">ไฟล์ที่เข้ามา</span>, โฟลเดอร์ย่อย, Template, ชื่อเซสชัน และเลขถัดไป</li>
+  </ul>
+
+  <h3>แท็บ 3 · ตอนนำเข้า</h3>
+  <ul>
+    <li>☑ <span class="ui">เพิ่มภาพที่ถ่ายเข้าแคตตาล็อก</span> เพื่อให้ภาพเข้า Lightroom เอง</li>
+    <li><span class="ui">แสดงภาพล่าสุดที่</span>: เลือกวิธีแสดงภาพที่เพิ่งถ่าย:</li>
+  </ul>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ตัวเลือก</th><th>เหมาะกับ</th></tr></thead>
+    <tbody>
+      <tr><td>ไม่เปลี่ยนหน้าจอ</td><td class="wrap">ไม่แตะหน้าจอเลย (ค่าเริ่มต้น)</td></tr>
+      <tr><td>Loupe ในหน้าต่างหลัก</td><td class="wrap">ดูภาพใหญ่ในจอหลัก</td></tr>
+      <tr><td><strong>Loupe บนจอที่สอง</strong></td><td class="wrap"><strong>แนะนำสำหรับให้ลูกค้าดู</strong></td></tr>
+      <tr><td>สไลด์โชว์บนจอที่สอง</td><td class="wrap">จอที่สองแบบสไลด์โชว์</td></tr>
+      <tr><td>ดูเต็มจอ</td><td class="wrap">เต็มจอ ไม่มีหน้าต่างอื่น</td></tr>
+    </tbody>
+  </table></div>
+  <p>ในการตั้งค่าขั้นสูง: Develop preset, Metadata preset, Keywords, Collection, เลือกภาพล่าสุดใน Library และ <span class="ui">Show with watermark</span></p>
+
+  <h3>5 · ตรวจ แล้วเริ่มถ่าย</h3>
+  <p>ข้างปุ่ม <span class="ui">เริ่มถ่าย</span> มีรายการตรวจที่อัปเดตเองทุกครั้งที่เปลี่ยนการตั้งค่า:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>เครื่องหมาย</th><th>ความหมาย</th></tr></thead>
+    <tbody>
+      <tr><td><strong>✓</strong></td><td class="wrap">พร้อมแล้ว</td></tr>
+      <tr><td><strong>!</strong></td><td class="wrap">เริ่มได้ แต่ควรอ่านก่อน เช่น มีไฟล์เก่าอยู่ในโฟลเดอร์ที่เฝ้าดู ซึ่งจะถูกนำเข้า</td></tr>
+      <tr><td><strong>✕</strong></td><td class="wrap">ต้องแก้ก่อน เช่น ไม่พบกล้อง, ยังไม่ได้เลือกโฟลเดอร์ปลายทาง, โฟลเดอร์ปลายทางอยู่ในโฟลเดอร์ที่เฝ้าดู หรือเปิด Export อัตโนมัติแต่ยังไม่ได้เลือก profile หรือโฟลเดอร์</td></tr>
+    </tbody>
+  </table></div>
+  <p>ถ้ายังมี ✕ <strong>ปุ่ม เริ่มถ่าย จะกดไม่ได้</strong> บรรทัดสถานะจะบอกว่าต้องแก้อะไรและอยู่แท็บไหน เช่น <em>"เลือกโฟลเดอร์ปลายทาง (แท็บ 2 · ไฟล์)"</em></p>
+
+  <h3>เริ่มถ่าย</h3>
+  <ol class="steps">
+    <li><strong>กด เริ่มถ่าย (Start Capture)</strong>สถานะจะขึ้น <span class="status-live">"พร้อมแล้ว — กดชัตเตอร์ที่กล้องได้เลย"</span></li>
+    <li><strong>กดชัตเตอร์ที่กล้อง</strong>ภาพจะขึ้นในหน้าต่างภายในไม่กี่วินาที ปุ่ม <span class="ui">เปิดใน Finder</span> จะเปิดโฟลเดอร์ของภาพ</li>
+  </ol>
+
+  <h3>หยุดและปิดหน้าต่าง</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ปุ่ม</th><th>ผล</th></tr></thead>
+    <tbody>
+      <tr><td><strong>หยุดถ่าย</strong> (Stop Capture)</td><td class="wrap">หยุดเซสชัน ปุ่มจะขึ้น "กำลังหยุด…" และกดไม่ได้จนกว่ากล้องจะถูกปล่อย (ไม่เกิน ~8 วินาที)</td></tr>
+      <tr><td><strong>ปิด</strong> (Close)</td><td class="wrap">หยุดถ่ายและปิดหน้าต่าง</td></tr>
+      <tr><td><strong>ปิดหน้าต่าง ถ่ายต่อ</strong></td><td class="wrap">ปิดหน้าต่างแต่ยังถ่ายต่อเบื้องหลัง</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn">
+    <span class="label">ข้อควรรู้</span>
+    <ul>
+      <li>หน้าต่างนี้เป็นแบบ modal ถ้าเปิดค้างไว้จะปิด Lightroom ไม่ได้</li>
+      <li>หลังกด หยุดถ่าย ให้รอจนปุ่มกลับเป็น เริ่มถ่าย ก่อนถอดสาย</li>
+    </ul>
+  </div>
+</section>
+
+<section id="th-watched-folder">
+  <h2><span class="num">6</span>โหมด Watched folder</h2>
+  <p>ใช้เมื่อกล้องต่อ USB โดยตรงไม่ได้ หรืออยากใช้แอปของผู้ผลิต (Imaging Edge Desktop, EOS Utility, NX Tether)
+  หรือส่งภาพผ่าน Wi-Fi / FTP โหมดนี้ <strong>ไม่ได้ด้อยกว่า</strong> ทุกภาพยังได้การตั้งชื่อ preset และ auto-export เหมือนกันทุกอย่าง</p>
+  <ol class="steps">
+    <li><strong>ตั้งแอปของผู้ผลิต</strong>ให้บันทึกภาพลงโฟลเดอร์หนึ่ง เช่น <code>~/Pictures/Incoming</code></li>
+    <li><strong>Source</strong>ในแท็บ Camera เลือก <code>Watched folder (vendor tether app, Wi-Fi or FTP)</code></li>
+    <li><strong>Watch folder</strong>เลือกโฟลเดอร์เดียวกับที่แอปบันทึกภาพลง</li>
+    <li><strong>Check every / File types</strong>ค่าเริ่มต้นใช้ได้เลย ถ้าส่งผ่าน Wi-Fi หรือ FTP ที่ช้า ให้เพิ่ม <span class="ui">Check every</span> เป็น 2–3 วินาที</li>
+    <li><strong>Incoming files</strong> (แท็บ Files)
+      <ul>
+        <li><code>Move into the destination folder</code> — ย้ายไฟล์ออกจากโฟลเดอร์ที่ดู</li>
+        <li><code>Copy into the destination folder</code> — คัดลอก ต้นฉบับยังอยู่</li>
+        <li><code>Leave where they are</code> — ไม่ย้าย นำเข้า Lightroom จากที่เดิม</li>
+      </ul>
+    </li>
+  </ol>
+  <div class="callout danger">
+    <span class="label">โฟลเดอร์ว่างและแยกกัน</span>
+    <ul>
+      <li>ถ้า <strong>โฟลเดอร์ปลายทางอยู่ภายในโฟลเดอร์ที่เฝ้าดู</strong> รายการตรวจจะขึ้น ✕ และกด เริ่มถ่าย ไม่ได้ เพื่อป้องกันไม่ให้ไฟล์ถูกคัดลอกซ้ำไม่หยุด</li>
+      <li>ถ้า <strong>โฟลเดอร์ที่เฝ้าดูมีไฟล์เก่าอยู่</strong> จะขึ้น ! พร้อมจำนวนไฟล์ เพราะไฟล์เหล่านั้นจะถูกนำเข้า แนะนำให้ใช้โฟลเดอร์ว่าง</li>
+      <li>เมื่อเปลี่ยนแหล่งภาพเป็น Watched folder <span class="ui">ไฟล์ที่เข้ามา</span> จะเปลี่ยนจาก "ย้าย" เป็น <strong>"คัดลอก"</strong> เอง เพื่อให้ต้นฉบับยังอยู่ เปลี่ยนได้ในการตั้งค่าขั้นสูง</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="th-wifi-ftp">
+  <h2><span class="num">7</span>รับภาพจากกล้องผ่าน Wi-Fi (FTP)</h2>
+  <p>กล้อง Sony, Canon และ Nikon หลายรุ่นส่งภาพขึ้น FTP server ผ่าน Wi-Fi ได้ ปลั๊กอินมี FTP server เล็ก ๆ ในตัว
+  (<code>tsftpd</code>) จึงถ่ายแบบไร้สายได้ โดยไม่ต้องติดตั้ง gPhoto2 หรือแอปอื่น
+  ภาพที่เข้ามาจะถูกเปลี่ยนชื่อ นำเข้า Lightroom และ export อัตโนมัติ เหมือนภาพจากสาย USB ทุกอย่าง</p>
+  <ol class="steps">
+    <li><strong>ต่อ Wi-Fi เดียวกัน</strong>กล้องและ Mac ต้องอยู่ในเครือข่าย Wi-Fi เดียวกัน (หรือให้กล้องต่อ hotspot เดียวกับ Mac)</li>
+    <li><strong>เลือกแหล่งภาพ</strong>แท็บ <span class="ui">1 · กล้อง</span> → <span class="ui">แหล่งภาพ</span> → <span class="ui">กล้องผ่าน Wi-Fi (FTP)</span> กรอบ <span class="ui">ใส่ค่าเหล่านี้ในกล้อง</span> จะแสดงขึ้น</li>
+    <li><strong>ใส่ค่าในกล้อง (ครั้งเดียว)</strong>เปิดเมนู FTP ของกล้อง แล้วพิมพ์ค่าตามกรอบนั้น (ดูตารางด้านล่าง) และเปิดการส่งอัตโนมัติทุกครั้งที่ถ่าย (auto transfer) ไว้ด้วย</li>
+    <li><strong>เลือกโฟลเดอร์ปลายทาง แล้วกด เริ่มถ่าย</strong>สถานะจะขึ้น <span class="status-live">"พร้อมแล้ว — กำลังรอภาพจากกล้องผ่าน Wi-Fi ที่ …"</span> เมื่อกล้องเข้าสู่ระบบ สถานะจะบอกว่ากล้องเชื่อมต่อแล้ว</li>
+    <li><strong>ครั้งแรก: กด Allow</strong>macOS อาจถามว่าจะให้ <code>tsftpd</code> รับการเชื่อมต่อจากเครือข่ายไหม กด <span class="ui">Allow</span> ไม่เช่นนั้นกล้องจะเชื่อมต่อไม่ได้</li>
+  </ol>
+
+  <h3>ค่าที่ต้องใส่ในกล้อง</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ในกล้อง</th><th>ค่า</th></tr></thead>
+    <tbody>
+      <tr><td>Server address / Host</td><td class="wrap">ที่อยู่ IP ของ Mac ที่แสดงในหน้าต่าง เช่น <code>192.168.1.20</code></td></tr>
+      <tr><td>Port</td><td class="wrap"><code>2121</code></td></tr>
+      <tr><td>User name</td><td class="wrap"><code>camera</code></td></tr>
+      <tr><td>Password</td><td class="wrap">รหัสที่แสดงในหน้าต่าง (ปลั๊กอินสร้างให้เอง) ปุ่ม <span class="ui">รหัสผ่านใหม่</span> สร้างรหัสใหม่ จากนั้นต้องใส่รหัสใหม่ในกล้อง</td></tr>
+      <tr><td>Passive mode</td><td class="wrap">เปิด (On)</td></tr>
+      <tr><td>Secure protocol (FTPS)</td><td class="wrap">ปิด (Off)</td></tr>
+      <tr><td>Directory</td><td class="wrap"><code>/</code> หรือเว้นว่าง</td></tr>
+    </tbody>
+  </table></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ยี่ห้อ</th><th>เมนู FTP ในกล้อง</th></tr></thead>
+    <tbody>
+      <tr><td>Sony</td><td class="wrap"><span class="ui">MENU → Network → FTP Transfer Func.</span></td></tr>
+      <tr><td>Canon</td><td class="wrap"><span class="ui">Network settings → FTP transfer</span></td></tr>
+      <tr><td>Nikon</td><td class="wrap"><span class="ui">Network → Connect to FTP server</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>ชื่อเมนูอาจต่างกันในแต่ละรุ่น ถ้าหาไม่พบ ให้ดูคู่มือกล้องหัวข้อ "FTP"</p>
+
+  <h3>ภาพเข้ามาอย่างไร</h3>
+  <ul>
+    <li>กล้องอัปโหลดภาพลงโฟลเดอร์ <code>&lt;Destination&gt;/FTP Inbox</code> ภาพจะถูกย้ายไปโฟลเดอร์ปลายทางและเปลี่ยนชื่อทันที inbox จึงเกือบว่างตลอด</li>
+    <li>ภาพจะถูกนำเข้า <strong>ก็ต่อเมื่อโอนครบแล้ว</strong> ภาพที่โอนไม่สำเร็จจะไม่เข้า Lightroom</li>
+    <li>ถ้าชื่อไฟล์ซ้ำ จะต่อท้าย <code>-1</code>, <code>-2</code>… ไม่มีการเขียนทับภาพเดิม</li>
+    <li>ถ้า FTP server หยุดกลางคัน ปลั๊กอินจะเปิดใหม่เอง</li>
+    <li>ใน <span class="ui">แสดงการตั้งค่าขั้นสูง</span> เปลี่ยนพอร์ตและโฟลเดอร์ inbox ได้ ถ้าเปลี่ยนพอร์ต ต้องเปลี่ยนในกล้องด้วย</li>
+  </ul>
+  <div class="callout warn">
+    <span class="label">ควรรู้</span>
+    <ul>
+      <li>FTP ธรรมดาไม่เข้ารหัส ใช้ใน Wi-Fi ของคุณเองหรือ hotspot อย่าใช้ Wi-Fi สาธารณะ</li>
+      <li>ไฟล์ RAW ขนาดใหญ่ใช้เวลาโอนผ่าน Wi-Fi หลายวินาทีต่อภาพ ถ้าต้องการให้ลูกค้าเห็นเร็ว ตั้งกล้องให้ส่งเฉพาะ JPEG</li>
+      <li>ก่อนรับงานที่มีค่าจ้าง ให้ทดสอบกับกล้องและเครือข่ายที่จะใช้จริงก่อน</li>
+    </ul>
+  </div>
+</section>
+
+<section id="th-naming">
+  <h2><span class="num">8</span>ตั้งชื่อไฟล์และโฟลเดอร์</h2>
+  <h3>เลือกรูปแบบชื่อไฟล์</h3>
+  <p>ช่อง <span class="ui">File name</span> ในแท็บ Files มี 3 โหมด:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>โหมด</th><th>ผลลัพธ์</th></tr></thead>
+    <tbody>
+      <tr><td>Original name from the camera</td><td class="wrap"><code>DSC00123.ARW</code> — ใช้ชื่อและเลขจากกล้องตรง ๆ</td></tr>
+      <tr><td>Date and sequence</td><td class="wrap"><code>20260818-0001.ARW</code> (ค่าเริ่มต้น)</td></tr>
+      <tr><td>Custom…</td><td class="wrap">พิมพ์ token เองในช่อง <span class="ui">Template</span> ที่โผล่มา</td></tr>
+    </tbody>
+  </table></div>
+  <p>ช่อง <span class="ui">Next number</span> แสดงเลขลำดับถัดไปและแก้ไขได้ ช่อง <span class="ui">Session name</span> ใช้กับ token <code>{session}</code></p>
+
+  <h3>Token ที่ใช้ได้</h3>
+  <p>ใช้ได้ทั้งในช่อง <span class="ui">Subfolder</span> และ <span class="ui">Template</span>:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Token</th><th>ผลลัพธ์</th><th>Token</th><th>ผลลัพธ์</th></tr></thead>
+    <tbody>
+      <tr><td><code>{date}</code></td><td>2026-08-18</td><td><code>{orig}</code></td><td>ชื่อเดิมจากกล้อง</td></tr>
+      <tr><td><code>{date:%Y%m%d}</code></td><td>20260818</td><td><code>{ext}</code></td><td>ARW</td></tr>
+      <tr><td><code>{year}</code></td><td>2026</td><td><code>{lext}</code></td><td>arw</td></tr>
+      <tr><td><code>{time}</code></td><td>14-32-08</td><td><code>{camera}</code></td><td>ILCE-7M4</td></tr>
+      <tr><td><code>{seq}</code></td><td>0001</td><td><code>{vendor}</code></td><td>Sony</td></tr>
+      <tr><td><code>{seq:3}</code></td><td>001</td><td><code>{session}</code></td><td>ชื่อเซสชันที่ตั้งไว้</td></tr>
+    </tbody>
+  </table></div>
+  <p>Token ที่พิมพ์ผิดจะถูกคงไว้ในชื่อไฟล์ตามเดิม (ไม่ถูกลบ) เพื่อให้เห็นข้อผิดพลาดได้ง่าย</p>
+
+  <h3>ตัวอย่าง Custom ที่แนะนำ</h3>
+<pre><code>Subfolder :  {date}
+File name :  {date:%Y%m%d}-{seq:4}
+ผลลัพธ์   :  2026-08-18/20260818-0001.ARW</code></pre>
+  <div class="callout tip">
+    <span class="label">ควรใส่ {seq} เสมอ</span>
+    <p>ถ้าใส่ชื่อคงที่เช่น <code>A7IV</code> เฉย ๆ ทุกไฟล์จะชื่อซ้ำ แล้วต่อท้าย <code>-1</code>, <code>-2</code> ไปเรื่อย ๆ
+    ให้ใช้แบบ <code>A7IV-{seq:4}</code> แทน</p>
+  </div>
+  <div class="callout warn">
+    <span class="label">โหมด Original name</span>
+    <p>ถ้าฟอร์แมตการ์ดใหม่หรือใช้กล้องสองตัว เลขอาจซ้ำได้ แนะนำให้ใช้ <strong>Date and sequence</strong> สำหรับงานสำคัญ
+    ปลั๊กอินจะไม่เขียนทับไฟล์เดิม</p>
+  </div>
+  <p><strong>ไฟล์ที่ export จะใช้ชื่อเดียวกับไฟล์ต้นฉบับเสมอ</strong> เช่น <code>DSC00123.ARW</code> → <code>DSC00123.jpg</code> ไม่ต้องตั้งซ้ำ</p>
+</section>
+
+<section id="th-watermark">
+  <h2><span class="num">9</span>ลายน้ำและ Export Profile</h2>
+  <p>เปิด <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span><span class="sep">→</span><span class="ui">Export Profiles…</span></span>
+  ที่นี่คือที่เตรียม profile ไว้ก่อนวันถ่าย profile เดียวกันใช้ได้ทั้งในหน้า Export และการ export อัตโนมัติ</p>
+  <h3>หน้าต่าง Export Profiles: 3 ขั้นตอน</h3>
+  <ol class="steps">
+    <li><strong>เลือกหรือสร้าง profile</strong><span class="ui">สร้างใหม่…</span> · <span class="ui">ทำสำเนา…</span> · <span class="ui">เปลี่ยนชื่อ…</span> · <span class="ui">ลบ</span> ชื่อที่ซ้ำกับ profile ที่มีอยู่จะไม่ถูกรับ เพื่อไม่ให้เขียนทับ</li>
+    <li><strong>ปรับค่า</strong>มีบรรทัดสรุปค่าของ profile สั้น ๆ ให้เห็น</li>
+    <li><strong>บันทึก</strong>ถ้ายังไม่ได้บันทึก จะขึ้น <em>"● มีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก"</em> เมื่อบันทึกแล้ว จะขึ้น <em>"✓ บันทึกทุกอย่างแล้ว"</em></li>
+  </ol>
+  <p><strong>พื้นฐาน:</strong> ประเภทไฟล์, คุณภาพ, ขนาด (ด้านยาว), เปิด/ปิดลายน้ำ, ข้อความหรือโลโก้, ตำแหน่ง, ความทึบ, ภาพตัวอย่าง และโฟลเดอร์ส่งขึ้นคลาวด์
+  <strong>ขั้นสูง:</strong> Bit depth, Colour space, ความละเอียด, Sharpening, Metadata, Engine, ฟอนต์, สี, เงา, ขนาด, ระยะจากขอบ และการหมุน</p>
+  <p>ในส่วน <span class="ui">ลายน้ำ</span> มีบรรทัดสถานะเตือนล่วงหน้า เช่น เลือก DNG ซึ่งใส่ลายน้ำไม่ได้, ข้อความว่าง, ไม่พบไฟล์โลโก้ หรือเปิดลายน้ำของ Lightroom ซ้อนกัน</p>
+
+
+  <div class="cards">
+    <div class="card"><h4>File Settings</h4><p>ชนิดไฟล์ (JPEG / TIFF / PNG / PSD / DNG / Original) คุณภาพ Bit depth, Colour space และความละเอียด</p></div>
+    <div class="card"><h4>Image Sizing</h4><p>ย่อขนาดตามด้านยาว ด้านสั้น กว้าง×สูง เมกะพิกเซล หรือเปอร์เซ็นต์ พร้อม Output Sharpening</p></div>
+    <div class="card"><h4>Metadata</h4><p>เลือกข้อมูลที่จะใส่ในไฟล์ ลบข้อมูลตำแหน่ง (Remove location info) และรูปแบบ keyword</p></div>
+  </div>
+
+  <h3>ตั้งค่าลายน้ำ</h3>
+  <p>ติ๊ก <span class="ui">Apply a watermark</span> แล้วตั้งค่า:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ค่า</th><th>ความหมาย</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Watermark: Text / Image</strong></td><td class="wrap">ลายน้ำเป็นข้อความ หรือไฟล์โลโก้ (PNG พื้นโปร่งใสดีที่สุด)</td></tr>
+      <tr><td><strong>Font / Size / Colour</strong></td><td class="wrap">ฟอนต์ ขนาด (% ของด้านสั้น) สี และ <span class="ui">Drop shadow</span></td></tr>
+      <tr><td><strong>Width</strong></td><td class="wrap">ขนาดโลโก้ (% ของความกว้างภาพ)</td></tr>
+      <tr><td><strong>Position</strong></td><td class="wrap">ตาราง 3×3 เลือกตำแหน่ง</td></tr>
+      <tr><td><strong>Opacity</strong></td><td class="wrap">ความทึบ</td></tr>
+      <tr><td><strong>Inset</strong></td><td class="wrap">ระยะห่างจากขอบ (% ของด้านสั้น)</td></tr>
+      <tr><td><strong>Rotate</strong></td><td class="wrap">องศาการหมุน</td></tr>
+      <tr><td><strong>Engine</strong></td><td class="wrap">ใช้ <strong>Built-in helper</strong> (ค่าเริ่มต้น) เพราะเก็บ EXIF, GPS และโปรไฟล์สีไว้ได้ดีที่สุด</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Preview</strong> จะอัปเดตทันทีที่ปรับค่า โดยใช้ภาพที่เลือกอยู่ใน Library กด <span class="ui">Sample…</span> เพื่อเลือกไฟล์เอง
+  (เปิดไฟล์ RAW ได้โดยตรง) หรือ <span class="ui">Selected Photo</span> เพื่ออ่านภาพที่เลือกใหม่
+  ค่าที่เป็นเปอร์เซ็นต์ทั้งหมดอิงกับขนาดภาพ ดังนั้นสิ่งที่เห็นใน Preview คือผลลัพธ์จริงบนภาพขนาดเต็ม</p>
+
+  <h3>Token ในข้อความลายน้ำ</h3>
+  <p><code>{year}</code> <code>{date}</code> <code>{time}</code> <code>{orig}</code> <code>{camera}</code></p>
+  <p>ตัวอย่าง: <code>© {year} ชื่อสตูดิโอ</code></p>
+
+  <div class="callout warn">
+    <span class="label">ไฟล์ DNG และ Original ใส่ลายน้ำไม่ได้</span>
+    <p>Lightroom แค่คัดลอกหรือแปลงไฟล์เหล่านี้ โดยไม่ได้สร้างภาพใหม่ จึงไม่มีภาพให้วาดลายน้ำลงไป ถ้าต้องการลายน้ำ ให้ใช้ JPEG, TIFF, PNG หรือ PSD</p>
+  </div>
+  <div class="callout tip">
+    <span class="label">ตรวจก่อนส่งลูกค้า</span>
+    <p>ก่อนเริ่มงาน ให้ export ทดลอง 1 ภาพแล้วเปิดดูว่ามีลายน้ำจริง ถ้าเจอข้อความ “Watermarking was skipped” ให้ตรวจไฟล์โลโก้ และกด
+    <span class="ui">Build Watermark Helper</span> ใน Plug-in Manager</p>
+  </div>
+
+  <h3>จัดการ Profile</h3>
+  <p>ปุ่ม <span class="ui">New</span> / <span class="ui">Duplicate</span> / <span class="ui">Rename</span> / <span class="ui">Delete</span> / <span class="ui">Save</span> อยู่ด้านบน
+  ถ้าเปลี่ยน profile ทั้งที่ยังไม่บันทึก ระบบจะถามก่อน</p>
+</section>
+
+<section id="th-auto-export">
+  <h2><span class="num">10</span>Export อัตโนมัติทุกภาพ</h2>
+  <p>ในหน้า Tethered Capture → แท็บ <strong>Auto-Export</strong>:</p>
+  <ol class="steps">
+    <li><strong>ติ๊ก Export every capture automatically</strong></li>
+    <li><strong>เลือก Profile</strong>กด <span class="ui">Edit…</span> เพื่อแก้ลายน้ำได้ทันที</li>
+    <li><strong>เลือก Export to</strong>โฟลเดอร์ปลายทางของไฟล์ที่ export</li>
+  </ol>
+  <p>ทุกครั้งที่กดชัตเตอร์ จะได้ทั้งไฟล์ RAW ต้นฉบับ และไฟล์ JPEG ใส่ลายน้ำพร้อมส่งลูกค้า</p>
+  <p>ช่อง <span class="ui">Show with watermark</span> ใต้ภาพ Preview: เปิดไว้จะเห็นภาพพร้อมลายน้ำ ตรงกับไฟล์ที่ลูกค้าจะได้รับจริง</p>
+  <div class="callout tip">
+    <span class="label">หมายเหตุ</span>
+    <p>Auto-export ทำงานหลังจากภาพถูกเพิ่มเข้าแคตตาล็อก จึงต้องติ๊ก <span class="ui">Add captures to the catalog</span> ในแท็บ On Import ด้วย</p>
+  </div>
+</section>
+
+<section id="th-deliver">
+  <h2><span class="num">11</span>ส่งไฟล์ขึ้นคลาวด์ (Deliver)</h2>
+  <p>ส่วน <strong>Thaiymuan Production — Deliver</strong> จะคัดลอกทุกไฟล์ที่ export เสร็จแล้ว เข้าโฟลเดอร์ที่แอปคลาวด์ซิงก์อยู่
+  (Google Drive, Dropbox, iCloud Drive) แอปคลาวด์จะอัปโหลดเอง จึงไม่ต้องล็อกอินอะไรในปลั๊กอิน</p>
+  <ol class="steps">
+    <li><strong>ติดตั้งและล็อกอินแอปคลาวด์</strong>เช่น Google Drive for desktop หรือ Dropbox บน Mac</li>
+    <li><strong>Detected</strong>เลือกโฟลเดอร์คลาวด์ที่ปลั๊กอินพบในเครื่อง หรือกด <span class="ui">Choose…</span> ในช่อง <span class="ui">Folder</span></li>
+    <li><strong>Subfolder</strong>ใช้ token <code>{date}</code> <code>{year}</code> <code>{orig}</code> ได้ เช่น <code>ลูกค้า/{date}</code></li>
+  </ol>
+  <div class="callout warn">
+    <span class="label">ข้อจำกัด</span>
+    <p>ปลั๊กอินยืนยันได้แค่ว่าไฟล์ถูกคัดลอกเข้าโฟลเดอร์คลาวด์แล้วเท่านั้น การอัปโหลดขึ้นเซิร์ฟเวอร์เป็นหน้าที่ของแอปคลาวด์ ให้ตรวจสถานะในแอปนั้น</p>
+  </div>
+  <h3>อัปโหลดขึ้นเซิร์ฟเวอร์ FTP / FTPS</h3>
+  <p>ส่งทุกไฟล์ที่ export แล้ว ขึ้นเซิร์ฟเวอร์ FTP โดยตรง เช่น เซิร์ฟเวอร์ของลูกค้า เว็บไซต์ของคุณ หรือร้านอัดรูป
+  ไฟล์ยังถูกเก็บในโฟลเดอร์ export เหมือนเดิม ตั้งค่าได้ทั้งในส่วน Deliver ของ Export และในหน้าต่าง <span class="ui">Export Profiles…</span></p>
+  <ol class="steps">
+    <li><strong>ติ๊ก อัปโหลดขึ้นเซิร์ฟเวอร์ FTP</strong></li>
+    <li><strong>โปรโตคอล</strong><code>FTPS (เข้ารหัส)</code> ถ้าเซิร์ฟเวอร์รองรับ (อาจเรียกว่า "FTP over TLS") ไม่เช่นนั้นใช้ <code>FTP</code></li>
+    <li><strong>เซิร์ฟเวอร์ ชื่อผู้ใช้ และรหัสผ่าน</strong>เช่น <code>ftp.example.com</code> (ไม่ต้องใส่ <code>ftp://</code>) รหัสผ่านเก็บใน keychain ของ macOS ไม่อยู่ใน Profile และไม่ขึ้นใน log</li>
+    <li><strong>โฟลเดอร์บนเซิร์ฟเวอร์</strong>เช่น <code>/{date}</code> หรือ <code>/ลูกค้า/{year}/{date}</code> โฟลเดอร์ที่ยังไม่มีจะถูกสร้างให้</li>
+    <li><strong>กด ทดสอบการเชื่อมต่อ</strong>เข้าสู่ระบบและตรวจโฟลเดอร์ โดยไม่อัปโหลดอะไร</li>
+  </ol>
+  <p>ในการตั้งค่าขั้นสูง: <span class="ui">พอร์ต</span> (ปกติ 21) และ <span class="ui">โหมด Passive</span> (เปิดไว้ เว้นแต่เซิร์ฟเวอร์บอกให้ใช้ active mode)</p>
+  <div class="callout tip">
+    <span class="label">ตอนถ่าย tether</span>
+    <p>Export อัตโนมัติก็อัปโหลดด้วย ถ้าอัปโหลดไม่สำเร็จ จะไม่มีหน้าต่างเด้งขึ้นมาขัดจังหวะ ข้อความจะขึ้นในแถวสถานะของหน้าต่างถ่ายแทน
+    และไฟล์ยังอยู่ครบในโฟลเดอร์ export <strong>ไม่รองรับ SFTP</strong></p>
+  </div>
+</section>
+
+<section id="th-interval">
+  <h2><span class="num">12</span>ถ่ายอัตโนมัติตามช่วงเวลา</h2>
+  <p>แท็บ <strong>Camera</strong> → ช่อง <span class="ui">Shutter</span> เลือก <code>Fire automatically every N seconds</code>:</p>
+  <p><strong>ก่อนอื่น</strong> ติ๊ก ☑ <span class="ui">แสดงการตั้งค่าขั้นสูง</span> ในแท็บ <span class="ui">1 · กล้อง</span> เพราะการตั้งค่านี้เป็นขั้นสูง</p>
+<pre><code>Every: [10] seconds, [0] frames</code></pre>
+  <ul>
+    <li><strong>frames = 0</strong> หมายถึงถ่ายไปเรื่อย ๆ จนกว่าจะกด Stop</li>
+    <li>กล้องต้องโฟกัสได้ ไม่งั้นจะไม่ลั่นชัตเตอร์ <strong>Time-lapse ควรใช้ MF (โฟกัสมือ)</strong></li>
+    <li>แต่ละภาพใช้เวลาโอนไม่กี่วินาที ถ้าตั้งช่วงสั้นเกินไป จังหวะจะคลาดเคลื่อน</li>
+  </ul>
+  <div class="callout tip">
+    <span class="label">แนะนำ</span>
+    <p>ให้ตั้ง <strong>frames = 0</strong> แล้วกด <span class="ui">Stop Capture</span> เองเมื่อได้จำนวนภาพที่ต้องการ
+    ในเวอร์ชันปัจจุบัน ถ้ากำหนดจำนวนภาพและเปิด <span class="ui">Reconnect…</span> ไว้ ระบบอาจเริ่มถ่ายชุดใหม่ต่อเอง</p>
+  </div>
+  <p>ค่าเริ่มต้นคือ <code>Wait for me to press the shutter</code> (กดเอง) ถ้าไม่แตะก็ทำงานเหมือนเดิม</p>
+</section>
+
+<section id="th-export">
+  <h2><span class="num">13</span>Export แบบปกติ</h2>
+  <p>ใช้กับภาพที่มีอยู่แล้วในแคตตาล็อก:</p>
+  <ol class="steps">
+    <li><strong>เลือกภาพ</strong>ใน Library</li>
+    <li><strong>File → Export…</strong></li>
+    <li><strong>Export To</strong>เลือก <code>Thaiymuan Production</code></li>
+    <li><strong>Profile</strong>แถวด้านบนใช้ <span class="ui">Load</span> / <span class="ui">Save</span> ค่าเป็น profile ได้</li>
+  </ol>
+  <p>พาเนล <strong>Export Location / File Naming / Watermarking / Post-Processing</strong> ของ Lightroom ยังใช้ได้ตามปกติ
+  ส่วน File Settings / Image Sizing / Sharpening / Metadata จะถูกแทนด้วยของปลั๊กอิน (เพื่อใช้ค่าชุดเดียวกับ auto-export)</p>
+  <div class="callout warn">
+    <span class="label">อย่าเปิดลายน้ำสองที่</span>
+    <p>ถ้าเปิดลายน้ำของปลั๊กอินแล้ว ให้ปิดพาเนล <span class="ui">Watermarking</span> ของ Lightroom ไม่งั้นภาพจะมีลายน้ำสองอัน</p>
+  </div>
+
+  <h3>เปิดสไลด์โชว์หลัง export</h3>
+  <p>ติ๊ก <span class="ui">Show the photos as a slideshow when the export finishes</span> Lightroom จะสลับไปโมดูล
+  <strong>Slideshow</strong> พร้อมเลือกภาพที่ export ไว้ให้ แล้ว <strong>กด Play เอง</strong></p>
+  <p class="path">สไลด์โชว์จะเล่นภาพต้นฉบับในแคตตาล็อก ไม่ใช่ไฟล์ JPEG ที่ export ออกไป</p>
+</section>
+
+<section id="th-troubleshoot">
+  <h2><span class="num">14</span>แก้ปัญหา</h2>
+  <p>เปิด <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span><span class="sep">→</span><span class="ui">Camera Diagnostics…</span></span> ระบบจะตรวจ 5 ข้อตามลำดับที่ควรแก้:
+  <strong>1</strong> gPhoto2 → <strong>2</strong> บริการกล้องของ macOS → <strong>3</strong> กล้องที่ต่ออยู่ → <strong>4</strong> การถ่ายจากคอม → <strong>5</strong> โปรแกรมช่วยใส่ลายน้ำ
+  แต่ละข้อแสดง ✓ / ! / ✕, สิ่งที่พบ และ <strong>วิธีแก้</strong> ด้านบนสุดสรุปว่า "ทุกอย่างปกติ" หรือพบปัญหากี่ข้อ
+  ปุ่ม <span class="ui">Release Camera</span> จะปล่อยกล้องคืนจาก macOS ถ้ายังปล่อยไม่ได้ จะบอกคำสั่ง <code>sudo killall …</code> ให้
+  ปุ่ม <span class="ui">Save Report</span> บันทึกรายงานไว้บน Desktop รายละเอียดทางเทคนิคอยู่ใน "แสดงรายละเอียดทางเทคนิค"</p>
+
+  <h3>กล้องไม่ขึ้นตอนกด Detect</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>สาเหตุ</th><th>วิธีแก้</th></tr></thead>
+    <tbody>
+      <tr><td>ยังไม่ได้ติดตั้ง gPhoto2</td><td class="wrap"><code>brew install gphoto2</code></td></tr>
+      <tr><td>macOS แย่งกล้องไว้</td><td class="wrap">Diagnostics → <span class="ui">Release Camera</span> หรือรัน <code>sudo killall ptpcamerad</code></td></tr>
+      <tr><td>กล้องหลับ / ปิดอยู่</td><td class="wrap">เปิดกล้องแล้วกด Detect ใหม่</td></tr>
+      <tr><td>สาย USB-C ชาร์จได้อย่างเดียว</td><td class="wrap">เปลี่ยนเป็นสายที่ส่งข้อมูลได้</td></tr>
+      <tr><td>โหมด USB ผิด</td><td class="wrap">ดูหัวข้อ <a href="#th-camera-setup">3</a></td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">
+    <span class="label">หมายเหตุสำคัญ</span>
+    <p>ข้อความ error ของ gPhoto2 จะบอกให้ปิด “PTPCamera” ซึ่งเป็นชื่อเก่าที่ไม่มีแล้วใน macOS รุ่นใหม่
+    ตัวจริงชื่อ <strong><code>ptpcamerad</code></strong> คำแนะนำส่วนใหญ่ในอินเทอร์เน็ตจึงใช้ไม่ได้</p>
+  </div>
+
+  <h3>ขึ้น “Could not claim the USB device” (-53)</h3>
+  <p>เกิดจากการเชื่อมต่อครั้งก่อนยังค้างอยู่ ทำตามลำดับ:</p>
+  <ol>
+    <li><strong>ถอดสาย USB แล้วเสียบใหม่</strong> — แก้ได้เกือบทุกครั้ง</li>
+    <li>ปิด-เปิดกล้อง</li>
+    <li>ปิดแอป Photos, Image Capture, Imaging Edge, EOS Utility</li>
+    <li><code>sudo killall ptpcamerad</code></li>
+  </ol>
+
+  <h3>สถานะขึ้น Live แต่ไม่มีภาพเข้ามา</h3>
+  <ol>
+    <li>เช็ค <strong>Still Img. Save Dest.</strong> ที่กล้อง ต้องเป็น PC+Camera (Sony)</li>
+    <li>แท็บ Camera → <span class="ui">Capture events</span> เปลี่ยนเป็น <code>Any new image (Sony)</code>
+      กล้อง Sony ต้องใช้โหมดนี้ ถ้าใช้โหมดอื่นจะไม่ได้ไฟล์เลยทั้งที่ดูเหมือนทำงานปกติ</li>
+    <li>ดู log ว่ามีบรรทัด <code>new capture in spool</code> ไหม</li>
+  </ol>
+
+  <h3>ปัญหาอื่น ๆ</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>อาการ</th><th>วิธีแก้</th></tr></thead>
+    <tbody>
+      <tr><td>ภาพเข้าโฟลเดอร์แต่ไม่เข้า Lightroom</td><td class="wrap">ติ๊ก <span class="ui">Add captures to the catalog</span> ในแท็บ On Import</td></tr>
+      <tr><td>ปิด Lightroom ไม่ได้</td><td class="wrap">หน้าต่าง Tethered Capture เปิดค้างอยู่ กด <span class="ui">Close</span> ก่อน</td></tr>
+      <tr><td>ไม่เห็นเมนู Plug-in Extras</td><td class="wrap">อยู่ผิดโมดูล กด <kbd>G</kbd> กลับมาที่ Library</td></tr>
+      <tr><td>ปลั๊กอินไม่อยู่ในรายการ</td><td class="wrap"><span class="ui">File → Plug-in Manager → Add</span> แล้วเลือกโฟลเดอร์ <code>ThaiymuanProduction.lrplugin</code></td></tr>
+      <tr><td>“The watermark helper has not been built”</td><td class="wrap">Plug-in Manager → <span class="ui">Build Watermark Helper</span> (ต้องมี <code>xcode-select --install</code>)</td></tr>
+      <tr><td>กล้องยังถูกจับไว้หลังปิด Lightroom</td><td class="wrap">กด <span class="ui">Stop Capture</span> และ <span class="ui">Close</span> ก่อนปิด Lightroom ทุกครั้ง ถ้ายังค้าง ให้ถอดสาย USB แล้วเสียบใหม่</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>FTP (Wi-Fi และการอัปโหลด)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>อาการ</th><th>วิธีแก้</th></tr></thead>
+    <tbody>
+      <tr><td>กล้องเชื่อมต่อ FTP ไม่ได้</td><td class="wrap">ตรวจว่าอยู่ Wi-Fi เดียวกัน และ IP ในกล้องตรงกับหน้าต่าง (IP อาจเปลี่ยนเมื่อต่อ Wi-Fi ใหม่) ตรวจ <span class="ui">System Settings → Network → Firewall</span> ว่าอนุญาต <code>tsftpd</code></td></tr>
+      <tr><td>กล้องแจ้งว่าเข้าสู่ระบบไม่ได้</td><td class="wrap">พิมพ์ชื่อผู้ใช้และรหัสผ่านใหม่ให้ตรงกับหน้าต่าง หลังกด <span class="ui">รหัสผ่านใหม่</span> ต้องใส่รหัสใหม่ในกล้องทุกครั้ง</td></tr>
+      <tr><td>"พอร์ต 2121 มีโปรแกรมอื่นใช้อยู่แล้ว"</td><td class="wrap">เลือกพอร์ตอื่นในการตั้งค่าขั้นสูง (เช่น 2122) แล้วใส่พอร์ตเดียวกันในกล้อง</td></tr>
+      <tr><td>เชื่อมต่อแล้ว แต่ไม่มีภาพเข้า</td><td class="wrap">เปิดการส่งอัตโนมัติ (auto transfer) ในกล้อง และตรวจว่า Directory เป็น <code>/</code> หรือว่าง</td></tr>
+      <tr><td>"The FTP server (tsftpd) is missing"</td><td class="wrap">ติดตั้งปลั๊กอินใหม่ หรือ Plug-in Manager → <span class="ui">Build Watermark Helper</span> (สร้าง FTP server ใหม่ด้วย)</td></tr>
+      <tr><td>อัปโหลดไม่สำเร็จ</td><td class="wrap">อ่านข้อความ error (บอกสาเหตุเป็นภาษาที่เลือก) แล้วกด <span class="ui">ทดสอบการเชื่อมต่อ</span> ไฟล์ยังอยู่ในโฟลเดอร์ export</td></tr>
+      <tr><td>FTPS: ตรวจใบรับรองไม่ได้</td><td class="wrap">ใช้ชื่อเซิร์ฟเวอร์ตามที่ผู้ให้บริการแจ้ง (ไม่ใช่ IP) หรือสอบถามเรื่องใบรับรอง</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>ไฟล์ Log</h3>
+<pre><code>~/Library/Logs/Thaiymuan Production/thaiymuan-production.log</code></pre>
+  <p>กดปุ่ม <span class="ui">Open Log</span> ในหน้า Tethered Capture ได้เลย เวลาแจ้งปัญหา แนบไฟล์นี้มาด้วยจะช่วยได้มาก</p>
+</section>
+
+<section id="th-reference">
+  <h2><span class="num">15</span>ตารางอ้างอิงเร็ว</h2>
+  <h3>ลำดับการทำงานปกติ</h3>
+  <ol class="quick-flow">
+    <li>เปิดกล้อง เสียบ USB</li>
+    <li>Library → Tethered Capture</li>
+    <li>แท็บ 1 · กล้อง → รอกล้องขึ้น</li>
+    <li>แท็บ 2 · ไฟล์ → โฟลเดอร์ปลายทาง</li>
+    <li>แท็บ 4 · Export อัตโนมัติ (ถ้าต้องการ)</li>
+    <li>ตรวจรายการ 5 ให้ไม่มี ✕</li>
+    <li>กด เริ่มถ่าย แล้วถ่าย</li>
+    <li>หยุดถ่าย แล้ว ปิด</li>
+  </ol>
+
+  <h3>ไฟล์ไปอยู่ที่ไหน</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>อะไร</th><th>ที่ไหน</th></tr></thead>
+    <tbody>
+      <tr><td>ไฟล์ต้นฉบับ</td><td class="wrap">โฟลเดอร์ Destination + Subfolder</td></tr>
+      <tr><td>ไฟล์ export</td><td class="wrap">โฟลเดอร์ Export to</td></tr>
+      <tr><td>พักไฟล์ชั่วคราว</td><td class="wrap"><code>&lt;Destination&gt;/.tetherstudio/spool</code> (ล้างอัตโนมัติ)</td></tr>
+      <tr><td>FTP inbox (Wi-Fi)</td><td class="wrap"><code>&lt;Destination&gt;/FTP Inbox</code> (ภาพถูกย้ายออกทันที)</td></tr>
+      <tr><td>Log ของ FTP server</td><td class="wrap"><code>&lt;Destination&gt;/.tetherstudio/tsftpd.log</code></td></tr>
+      <tr><td>Log</td><td class="wrap"><code>~/Library/Logs/Thaiymuan Production/thaiymuan-production.log</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>กล้อง Sony ที่ต่อ USB ตรงได้</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>รุ่น</th><th>ต่อตรง</th></tr></thead>
+    <tbody>
+      <tr><td class="wrap">A7 IV, A7R V, A1 II, A6700, FX3</td><td class="wrap"><strong>ได้</strong></td></tr>
+      <tr><td class="wrap">A1, A9 III, A7S III</td><td class="wrap">น่าจะได้ ยังไม่ยืนยัน</td></tr>
+      <tr><td class="wrap">A7C II, A7CR, ZV-E1, FX30</td><td class="wrap">ไม่ได้ — ใช้ <a href="#th-watched-folder">Watched folder</a></td></tr>
+    </tbody>
+  </table></div>
+  <p>รุ่นที่ต่อตรงไม่ได้ ให้ใช้ Imaging Edge Desktop คู่กับโหมด Watched folder ได้ผลเหมือนกันทุกอย่าง ทั้งการตั้งชื่อ preset และ auto-export
+  ก่อนรับงานที่มีค่าจ้าง ให้ทดสอบกับกล้องของคุณก่อนเสมอ</p>
+</section>
+
+<footer>
+  สงวนลิขสิทธิ์ © 2026 Thaiymuan Production · พัฒนาโดย Kongjai Sayavong ·
+  <a href="https://thaiymuan.com">thaiymuan.com</a>
+</footer>
+</div>
+
+<div class="doc" data-lang="en" lang="en">
+<header class="hero">
+  <p class="eyebrow">User manual · Version 1.2</p>
+  <h1>Thaiymuan Production</h1>
+  <p class="lede">A plug-in for <strong>Adobe Lightroom Classic</strong> that brings tethered shots from Canon, Nikon
+  and Sony cameras, over USB or Wi-Fi, straight into Lightroom, and exports a watermarked copy the moment you press the shutter.</p>
+  <ul class="flow" aria-label="Workflow">
+    <li>Press shutter</li><li class="arrow">→</li>
+    <li>Download from camera</li><li class="arrow">→</li>
+    <li>File into folder</li><li class="arrow">→</li>
+    <li>Add to Lightroom</li><li class="arrow">→</li>
+    <li>Export with watermark</li>
+  </ul>
+  <p class="meta">Copyright © 2026 Thaiymuan Production · Developed by Kongjai Sayavong</p>
+</header>
+
+<section id="en-requirements">
+  <h2><span class="num">1</span>Requirements</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Item</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Lightroom Classic 10 or later</strong></td><td class="wrap">Required. The cloud-based Lightroom app (not Classic) has no plug-in support, so tethering is impossible there.</td></tr>
+      <tr><td><strong>macOS 11 or later</strong></td><td class="wrap">The plug-in is Mac-only.</td></tr>
+      <tr><td><strong>Xcode Command Line Tools</strong></td><td class="wrap">Install once with <code>xcode-select --install</code>. Used to build the watermark helper.</td></tr>
+      <tr><td><strong>gPhoto2</strong></td><td class="wrap"><code>brew install gphoto2</code>. Needed for direct USB tethering.</td></tr>
+      <tr><td>A camera that can send over FTP <span class="path">(optional)</span></td><td class="wrap">For cable-free shooting over Wi-Fi. No gPhoto2 needed: the FTP server is built into the plug-in (see section <a href="#en-wifi-ftp">7</a>).</td></tr>
+      <tr><td>ImageMagick <span class="path">(optional)</span></td><td class="wrap"><code>brew install imagemagick</code>. An alternative watermark engine.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">
+    <span class="label">Don't want to install gPhoto2?</span>
+    <p>Use <a href="#en-watched-folder">Watched folder</a> mode instead: let the camera maker's app
+    (Sony Imaging Edge, Canon EOS Utility, Nikon NX Tether) download the photos, and the plug-in watches that folder.</p>
+  </div>
+</section>
+
+<section id="en-install">
+  <h2><span class="num">2</span>Installation</h2>
+  <ol class="steps">
+    <li><strong>Open Terminal and run the installer</strong>
+<pre><code>cd lightroom-tether-studio
+./install.sh</code></pre>
+      It builds the watermark helper and links the plug-in into Lightroom's plug-in folder.
+    </li>
+    <li><strong>Install gPhoto2</strong> (if you don't have it and will tether over USB)
+<pre><code>./scripts/install-deps.sh --gphoto2</code></pre>
+    </li>
+    <li><strong>Check in Lightroom Classic</strong>
+      <p>Go to <span class="path"><span class="ui">File</span><span class="sep">→</span><span class="ui">Plug-in Manager</span></span>.
+      <strong>Thaiymuan Production</strong> should be listed. If not, press <span class="ui">Add</span> and choose the
+      <code>ThaiymuanProduction.lrplugin</code> folder.</p>
+    </li>
+  </ol>
+  <div class="callout warn">
+    <span class="label">If Lightroom doesn't see the plug-in</span>
+    <p>Lightroom sometimes ignores symlinks. Install a copy instead with <code>./install.sh --copy</code>.</p>
+  </div>
+  <p><strong>Uninstall:</strong> <code>./install.sh --uninstall</code></p>
+</section>
+
+<section id="en-camera-setup">
+  <h2><span class="num">3</span>Camera setup before first use</h2>
+  <p>This is <strong>the most important step</strong>. With the wrong settings the camera won't connect, or won't send photos.</p>
+  <div class="camera-tabs">
+    <div class="camera">
+      <h4>Sony <small>A7 III, A7 IV, A7R V, A1 II, A6700, FX3</small></h4>
+<pre><code>MENU → Setup (toolbox icon) → USB Connection → PC Remote
+MENU → Setup → PC Remote Settings → Still Img. Save Dest. → PC+Camera</code></pre>
+      <ul>
+        <li>On <strong>Auto / Mass Storage / MTP</strong>, the Mac sees the camera but no photos arrive.</li>
+        <li>With Save Dest. set to <strong>Camera Only</strong>, the camera shoots but never sends the file to the Mac.</li>
+      </ul>
+    </div>
+    <div class="camera">
+      <h4>Canon</h4>
+      <p>Put the camera in stills mode (not movie mode).</p>
+    </div>
+    <div class="camera">
+      <h4>Nikon</h4>
+      <p>Set USB to <strong>MTP/PTP</strong> (not Mass Storage) and turn Wi-Fi / Bluetooth off first, since they compete for the USB connection.</p>
+    </div>
+  </div>
+</section>
+
+<section id="en-open">
+  <h2><span class="num">4</span>Opening the plug-in</h2>
+  <p>Switch to the <strong>Library</strong> module first (press <kbd>G</kbd>), then open
+  <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span></span>. There are three items:</p>
+  <div class="cards">
+    <div class="card"><span class="tag">Main window</span><h4>Tethered Capture…</h4><p>The tethered shooting window.</p></div>
+    <div class="card"><span class="tag">Settings</span><h4>Export Profiles…</h4><p>Watermark, image size and file type settings.</p></div>
+    <div class="card"><span class="tag">Diagnostics</span><h4>Camera Diagnostics…</h4><p>Finds out why a camera won't connect.</p></div>
+  </div>
+  <p>Tool settings and the <span class="ui">Build Watermark Helper</span> button are in
+  <span class="path"><span class="ui">File</span><span class="sep">→</span><span class="ui">Plug-in Manager</span><span class="sep">→</span><span class="ui">Thaiymuan Production</span></span>.</p>
+  <div class="callout tip">
+    <span class="label">No Plug-in Extras menu?</span>
+    <p>You're in the wrong module. Press <kbd>G</kbd> to go back to Library.</p>
+  </div>
+
+  <h3>Changing the interface language</h3>
+  <p>The plug-in's windows come in three languages: <strong>ລາວ</strong> (default), <strong>ไทย</strong> and <strong>English</strong>. Pick one from the <span class="ui">Language</span> menu at the top of:</p>
+  <ul>
+    <li><span class="path"><span class="ui">File</span><span class="sep">→</span><span class="ui">Plug-in Manager</span><span class="sep">→</span><span class="ui">Thaiymuan Production</span></span> (the main place)</li>
+    <li>the Tethered Capture and Export Profiles windows</li>
+  </ul>
+  <p>The new language applies <strong>the next time a window opens</strong>. The <span class="ui">Plug-in Extras</span> menu items always stay in English, because Lightroom draws them.</p>
+
+  <h3>Basic and advanced settings</h3>
+  <p>Every window shows only the settings most shoots need. The rest sit behind ☐ <span class="ui">Show advanced settings</span>. Hidden settings <strong>keep their values and still apply</strong>; a grey line in each tab says what is hidden.</p>
+</section>
+
+<section id="en-tether">
+  <h2><span class="num">5</span>Tethered capture, step by step</h2>
+  <p>Open <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span><span class="sep">→</span><span class="ui">Tethered Capture…</span></span> The tabs follow the order you work in:
+  <span class="ui">1 · Camera</span> → <span class="ui">2 · Files</span> → <span class="ui">3 · On Import</span> → <span class="ui">4 · Auto-Export</span>, and the <span class="ui">5 · Check, then start</span> checklist sits next to the start button.</p>
+
+  <h3>Tab 1 · Camera</h3>
+  <ol class="steps">
+    <li><strong>Source</strong>Choose <code>Camera over USB (gPhoto2)</code>, or <code>Watched folder</code> when you use the camera maker's app (see section <a href="#en-watched-folder">6</a>). For Wi-Fi, choose <code>Camera over Wi-Fi (FTP)</code> (see section <a href="#en-wifi-ftp">7</a>).</li>
+    <li><strong>The camera appears by itself</strong>Plug in the USB cable and wait 1–3 seconds; the camera's name shows in the <span class="ui">Camera</span> field.
+      <ul>
+        <li>☑ <span class="ui">Auto</span> keeps scanning for cameras.</li>
+        <li><span class="ui">Detect</span> scans right away.</li>
+      </ul>
+    </li>
+  </ol>
+  <p>Under <strong>advanced settings</strong> on this tab (the defaults are fine):</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Setting</th><th>Default, and when to change it</th></tr></thead>
+    <tbody>
+      <tr><td>Reconnect and carry on…</td><td class="wrap">On. A loose cable or battery swap reconnects by itself; frames already downloaded are kept.</td></tr>
+      <tr><td>Announce with</td><td class="wrap">A brief on-screen message. Switch to an alert dialog or nothing if you prefer.</td></tr>
+      <tr><td>Capture events</td><td class="wrap">Automatic (by camera make). Switch to <code>Any new image (Sony)</code> if the status is Live but no photos arrive.</td></tr>
+      <tr><td>Shutter (interval shooting)</td><td class="wrap">Wait for me. See section <a href="#en-interval">12</a>.</td></tr>
+      <tr><td>Check every / Preview size / File types</td><td class="wrap">0.4 s / 900 px / common RAW and JPEG types.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Tab 2 · Files</h3>
+  <ul>
+    <li><span class="ui">Destination</span>: where photos are filed. If empty, <code>~/Pictures/Thaiymuan Tether</code> is suggested; the folder is created when capture starts.</li>
+    <li><strong>File name</strong> style: see section <a href="#en-naming">8</a>. The <span class="ui">Example</span> line shows the next file name.</li>
+    <li>Advanced: <span class="ui">Incoming files</span>, subfolder, template, session name and next number.</li>
+  </ul>
+
+  <h3>Tab 3 · On Import</h3>
+  <ul>
+    <li>☑ <span class="ui">Add captures to the catalog</span> so photos arrive in Lightroom by themselves.</li>
+    <li><span class="ui">Show capture on</span>: where the newest photo appears:</li>
+  </ul>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Option</th><th>Best for</th></tr></thead>
+    <tbody>
+      <tr><td>Do not change the view</td><td class="wrap">Leaves the screen alone (default)</td></tr>
+      <tr><td>Loupe in the main window</td><td class="wrap">A large view in the main window</td></tr>
+      <tr><td><strong>Loupe on the second monitor</strong></td><td class="wrap"><strong>Recommended for showing clients</strong></td></tr>
+      <tr><td>Slideshow on the second monitor</td><td class="wrap">Second monitor in slideshow style</td></tr>
+      <tr><td>Full-screen preview</td><td class="wrap">Full screen, no other windows</td></tr>
+    </tbody>
+  </table></div>
+  <p>Advanced: Develop preset, Metadata preset, Keywords, Collection, select the newest capture in the Library, and <span class="ui">Show with watermark</span>.</p>
+
+  <h3>5 · Check, then start</h3>
+  <p>Next to <span class="ui">Start Capture</span> is a checklist that updates whenever a setting changes:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Mark</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><strong>✓</strong></td><td class="wrap">Ready</td></tr>
+      <tr><td><strong>!</strong></td><td class="wrap">You can start, but read it first — e.g. old files in the watch folder will be imported</td></tr>
+      <tr><td><strong>✕</strong></td><td class="wrap">Fix it first — no camera found, no destination, destination inside the watch folder, or auto-export on without a profile or folder</td></tr>
+    </tbody>
+  </table></div>
+  <p>While any ✕ remains, <strong>Start Capture cannot be pressed</strong>. The status line tells you what to fix and on which tab, e.g. <em>"choose a destination folder (tab 2 · Files)"</em>.</p>
+
+  <h3>Start shooting</h3>
+  <ol class="steps">
+    <li><strong>Press Start Capture</strong>The status reads <span class="status-live">"Live — press the shutter on the camera"</span>.</li>
+    <li><strong>Press the shutter</strong>The photo appears in the window within a few seconds. <span class="ui">Reveal in Finder</span> opens its folder.</li>
+  </ol>
+
+  <h3>Stopping and closing</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Button</th><th>Effect</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Stop Capture</strong></td><td class="wrap">Ends the session. The button reads "Stopping…" and can't be pressed until the camera is released (up to ~8 seconds)</td></tr>
+      <tr><td><strong>Close</strong></td><td class="wrap">Stops capturing and closes the window</td></tr>
+      <tr><td><strong>Close, Keep Capturing</strong></td><td class="wrap">Closes the window but keeps capturing in the background</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn">
+    <span class="label">Good to know</span>
+    <ul>
+      <li>This window is modal. While it's open you can't quit Lightroom.</li>
+      <li>After Stop Capture, wait for the button to read Start Capture again before unplugging.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="en-watched-folder">
+  <h2><span class="num">6</span>Watched folder mode</h2>
+  <p>Use this when the camera can't tether over USB directly, when you prefer the maker's app (Imaging Edge Desktop, EOS Utility, NX Tether),
+  or when photos arrive over Wi-Fi / FTP. It is <strong>not a lesser option</strong>: every photo still gets renaming, presets and auto-export.</p>
+  <ol class="steps">
+    <li><strong>Set up the maker's app</strong>to save photos into one folder, e.g. <code>~/Pictures/Incoming</code>.</li>
+    <li><strong>Source</strong>On the Camera tab choose <code>Watched folder (vendor tether app, Wi-Fi or FTP)</code>.</li>
+    <li><strong>Watch folder</strong>Choose the same folder the app saves into.</li>
+    <li><strong>Check every / File types</strong>The defaults are fine. For slow Wi-Fi or FTP transfers, raise <span class="ui">Check every</span> to 2–3 seconds.</li>
+    <li><strong>Incoming files</strong> (Files tab)
+      <ul>
+        <li><code>Move into the destination folder</code> — moves files out of the watched folder</li>
+        <li><code>Copy into the destination folder</code> — copies; the original stays</li>
+        <li><code>Leave where they are</code> — no move; imports into Lightroom from where they are</li>
+      </ul>
+    </li>
+  </ol>
+  <div class="callout danger">
+    <span class="label">Empty, separate folders</span>
+    <ul>
+      <li>If the <strong>Destination is inside the watch folder</strong>, the checklist shows ✕ and Start Capture is disabled. This prevents files being copied over and over.</li>
+      <li>If the <strong>watch folder already holds files</strong>, a ! line shows how many, because they will be imported. An empty folder is recommended.</li>
+      <li>Switching Source to Watched folder changes <span class="ui">Incoming files</span> from Move to <strong>Copy</strong> automatically, so the originals stay put. Change it under advanced settings.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="en-wifi-ftp">
+  <h2><span class="num">7</span>Camera over Wi-Fi (FTP)</h2>
+  <p>Many Sony, Canon and Nikon cameras can send photos to an FTP server over Wi-Fi. The plug-in has a small FTP server built in
+  (<code>tsftpd</code>), so you can shoot without a cable and without installing gPhoto2 or any other app.
+  Arriving photos are renamed, imported and auto-exported exactly like USB captures.</p>
+  <ol class="steps">
+    <li><strong>Same Wi-Fi</strong>The camera and the Mac must be on the same Wi-Fi network (or the camera joins the same hotspot as the Mac).</li>
+    <li><strong>Choose the source</strong>Tab <span class="ui">1 · Camera</span> → <span class="ui">Source</span> → <span class="ui">Camera over Wi-Fi (FTP)</span>. An <span class="ui">Enter these in the camera</span> box appears.</li>
+    <li><strong>Enter the settings in the camera (once)</strong>Open the camera's FTP menu and type in the values from that box (see the table below). Also turn on automatic transfer after every shot.</li>
+    <li><strong>Choose a destination and press Start Capture</strong>The status reads <span class="status-live">"Live — waiting for photos from the camera over Wi-Fi at …"</span>. Once the camera logs in, the status says it is connected.</li>
+    <li><strong>First time: press Allow</strong>macOS may ask whether <code>tsftpd</code> may accept incoming network connections. Press <span class="ui">Allow</span>, or the camera cannot connect.</li>
+  </ol>
+
+  <h3>What to enter in the camera</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>In the camera</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Server address / Host</td><td class="wrap">The Mac's IP address shown in the window, e.g. <code>192.168.1.20</code></td></tr>
+      <tr><td>Port</td><td class="wrap"><code>2121</code></td></tr>
+      <tr><td>User name</td><td class="wrap"><code>camera</code></td></tr>
+      <tr><td>Password</td><td class="wrap">The one shown in the window (generated by the plug-in). <span class="ui">New Password</span> makes a new one; the camera then needs the new one too.</td></tr>
+      <tr><td>Passive mode</td><td class="wrap">On</td></tr>
+      <tr><td>Secure protocol (FTPS)</td><td class="wrap">Off</td></tr>
+      <tr><td>Directory</td><td class="wrap"><code>/</code> or blank</td></tr>
+    </tbody>
+  </table></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Brand</th><th>FTP menu in the camera</th></tr></thead>
+    <tbody>
+      <tr><td>Sony</td><td class="wrap"><span class="ui">MENU → Network → FTP Transfer Func.</span></td></tr>
+      <tr><td>Canon</td><td class="wrap"><span class="ui">Network settings → FTP transfer</span></td></tr>
+      <tr><td>Nikon</td><td class="wrap"><span class="ui">Network → Connect to FTP server</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>Menu names differ between models. If you can't find it, look up "FTP" in the camera's manual.</p>
+
+  <h3>How photos arrive</h3>
+  <ul>
+    <li>The camera uploads into <code>&lt;Destination&gt;/FTP Inbox</code>. Each photo is moved into the destination and renamed straight away, so the inbox stays nearly empty.</li>
+    <li>A photo is imported <strong>only once it has fully arrived</strong>. Interrupted transfers never reach Lightroom.</li>
+    <li>Clashing names get <code>-1</code>, <code>-2</code>… appended; nothing is ever overwritten.</li>
+    <li>If the FTP server stops unexpectedly, the plug-in restarts it.</li>
+    <li>Under <span class="ui">Show advanced settings</span> you can change the port and the inbox folder. If you change the port, change it in the camera too.</li>
+  </ul>
+  <div class="callout warn">
+    <span class="label">Good to know</span>
+    <ul>
+      <li>Plain FTP is not encrypted. Use your own Wi-Fi or a hotspot, never public Wi-Fi.</li>
+      <li>Large RAW files take several seconds each over Wi-Fi. If the client needs to see shots quickly, have the camera send JPEG only.</li>
+      <li>Before a paid job, test with the actual camera and network you will use.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="en-naming">
+  <h2><span class="num">8</span>File and folder naming</h2>
+  <h3>Choosing a file name style</h3>
+  <p><span class="ui">File name</span> on the Files tab has three modes:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Mode</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>Original name from the camera</td><td class="wrap"><code>DSC00123.ARW</code> — the camera's own name and number</td></tr>
+      <tr><td>Date and sequence</td><td class="wrap"><code>20260818-0001.ARW</code> (default)</td></tr>
+      <tr><td>Custom…</td><td class="wrap">Type your own tokens in the <span class="ui">Template</span> field that appears</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="ui">Next number</span> shows the next sequence number and can be edited. <span class="ui">Session name</span> feeds the <code>{session}</code> token.</p>
+
+  <h3>Available tokens</h3>
+  <p>Usable in both <span class="ui">Subfolder</span> and <span class="ui">Template</span>:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Token</th><th>Result</th><th>Token</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td><code>{date}</code></td><td>2026-08-18</td><td><code>{orig}</code></td><td>original camera name</td></tr>
+      <tr><td><code>{date:%Y%m%d}</code></td><td>20260818</td><td><code>{ext}</code></td><td>ARW</td></tr>
+      <tr><td><code>{year}</code></td><td>2026</td><td><code>{lext}</code></td><td>arw</td></tr>
+      <tr><td><code>{time}</code></td><td>14-32-08</td><td><code>{camera}</code></td><td>ILCE-7M4</td></tr>
+      <tr><td><code>{seq}</code></td><td>0001</td><td><code>{vendor}</code></td><td>Sony</td></tr>
+      <tr><td><code>{seq:3}</code></td><td>001</td><td><code>{session}</code></td><td>your session name</td></tr>
+    </tbody>
+  </table></div>
+  <p>A mistyped token is left in the file name as-is (not deleted), so the mistake is easy to spot.</p>
+
+  <h3>Recommended custom setup</h3>
+<pre><code>Subfolder :  {date}
+File name :  {date:%Y%m%d}-{seq:4}
+Result    :  2026-08-18/20260818-0001.ARW</code></pre>
+  <div class="callout tip">
+    <span class="label">Always include {seq}</span>
+    <p>With a fixed name like <code>A7IV</code> alone, every file gets the same name and is suffixed <code>-1</code>, <code>-2</code> and so on.
+    Use something like <code>A7IV-{seq:4}</code> instead.</p>
+  </div>
+  <div class="callout warn">
+    <span class="label">Original name mode</span>
+    <p>After reformatting a card, or with two camera bodies, numbers can repeat. Use <strong>Date and sequence</strong> for important jobs.
+    The plug-in never overwrites an existing file.</p>
+  </div>
+  <p><strong>Exported files always keep the source file's name</strong>, e.g. <code>DSC00123.ARW</code> → <code>DSC00123.jpg</code>. No need to set it twice.</p>
+</section>
+
+<section id="en-watermark">
+  <h2><span class="num">9</span>Watermarks and export profiles</h2>
+  <p>Open <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span><span class="sep">→</span><span class="ui">Export Profiles…</span></span>
+  This is where you prepare profiles before a shoot. The same profiles are used by the Export dialog and by auto-export.</p>
+  <h3>The Export Profiles window: three steps</h3>
+  <ol class="steps">
+    <li><strong>Choose or create a profile</strong><span class="ui">New…</span> · <span class="ui">Duplicate…</span> · <span class="ui">Rename…</span> · <span class="ui">Delete</span>. A name that already exists is refused, so nothing is overwritten.</li>
+    <li><strong>Adjust the settings</strong>A one-line summary of the profile is shown.</li>
+    <li><strong>Save</strong>Unsaved edits show <em>"● Unsaved changes"</em>; after saving it reads <em>"✓ All changes saved"</em>.</li>
+  </ol>
+  <p><strong>Basic:</strong> file type, quality, size (long edge), watermark on/off, text or logo, position, opacity, preview and the delivery folder.
+  <strong>Advanced:</strong> bit depth, colour space, resolution, sharpening, metadata, engine, font, colour, shadow, size, inset and rotation.</p>
+  <p>The <span class="ui">Watermark</span> section has a status line that warns ahead of time — DNG chosen (can't be watermarked), empty text, missing logo, or Lightroom's own watermark also switched on.</p>
+
+
+  <div class="cards">
+    <div class="card"><h4>File Settings</h4><p>File type (JPEG / TIFF / PNG / PSD / DNG / Original), quality, bit depth, colour space and resolution.</p></div>
+    <div class="card"><h4>Image Sizing</h4><p>Resize by long edge, short edge, width × height, megapixels or percentage, plus output sharpening.</p></div>
+    <div class="card"><h4>Metadata</h4><p>What metadata to include, <span class="ui">Remove location info</span>, and keyword format.</p></div>
+  </div>
+
+  <h3>Watermark settings</h3>
+  <p>Tick <span class="ui">Apply a watermark</span>, then set:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Setting</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Watermark: Text / Image</strong></td><td class="wrap">A text mark or a logo file (a transparent PNG works best)</td></tr>
+      <tr><td><strong>Font / Size / Colour</strong></td><td class="wrap">Font, size (% of the short edge), colour and <span class="ui">Drop shadow</span></td></tr>
+      <tr><td><strong>Width</strong></td><td class="wrap">Logo size (% of photo width)</td></tr>
+      <tr><td><strong>Position</strong></td><td class="wrap">A 3×3 grid of positions</td></tr>
+      <tr><td><strong>Opacity</strong></td><td class="wrap">How solid the mark is</td></tr>
+      <tr><td><strong>Inset</strong></td><td class="wrap">Distance from the edge (% of the short edge)</td></tr>
+      <tr><td><strong>Rotate</strong></td><td class="wrap">Rotation in degrees</td></tr>
+      <tr><td><strong>Engine</strong></td><td class="wrap">Use the <strong>Built-in helper</strong> (default); it keeps EXIF, GPS and the colour profile best</td></tr>
+    </tbody>
+  </table></div>
+  <p>The <strong>Preview</strong> updates as soon as you change a setting, using the photo selected in the Library. <span class="ui">Sample…</span> picks any file
+  (raw files open directly) and <span class="ui">Selected Photo</span> re-reads the current selection.
+  All percentage values are relative to the image, so the preview shows exactly what the full-size result will look like.</p>
+
+  <h3>Tokens in watermark text</h3>
+  <p><code>{year}</code> <code>{date}</code> <code>{time}</code> <code>{orig}</code> <code>{camera}</code></p>
+  <p>Example: <code>© {year} Studio Name</code></p>
+
+  <div class="callout warn">
+    <span class="label">DNG and Original can't be watermarked</span>
+    <p>Lightroom only copies or converts these files without rendering a new image, so there's nothing to draw on. For a watermark, use JPEG, TIFF, PNG or PSD.</p>
+  </div>
+  <div class="callout tip">
+    <span class="label">Check before delivering to a client</span>
+    <p>Before a job, export one test photo and open it to confirm the watermark is there. If you see “Watermarking was skipped”, check the logo file and press
+    <span class="ui">Build Watermark Helper</span> in the Plug-in Manager.</p>
+  </div>
+
+  <h3>Managing profiles</h3>
+  <p>The <span class="ui">New</span> / <span class="ui">Duplicate</span> / <span class="ui">Rename</span> / <span class="ui">Delete</span> / <span class="ui">Save</span> buttons are at the top.
+  If you switch profiles with unsaved changes, you'll be asked first.</p>
+</section>
+
+<section id="en-auto-export">
+  <h2><span class="num">10</span>Auto-export every capture</h2>
+  <p>In Tethered Capture → <strong>Auto-Export</strong> tab:</p>
+  <ol class="steps">
+    <li><strong>Tick Export every capture automatically</strong></li>
+    <li><strong>Choose a Profile</strong>Press <span class="ui">Edit…</span> to adjust the watermark right there.</li>
+    <li><strong>Choose Export to</strong>The folder the exported files go into.</li>
+  </ol>
+  <p>Every shutter press then gives you the original RAW and a watermarked JPEG ready for the client.</p>
+  <p><span class="ui">Show with watermark</span> under the preview shows the photo with its watermark, exactly as the client will receive it.</p>
+  <div class="callout tip">
+    <span class="label">Note</span>
+    <p>Auto-export runs after a photo is added to the catalog, so <span class="ui">Add captures to the catalog</span> on the On Import tab must be ticked too.</p>
+  </div>
+</section>
+
+<section id="en-deliver">
+  <h2><span class="num">11</span>Cloud delivery (Deliver)</h2>
+  <p>The <strong>Thaiymuan Production — Deliver</strong> section copies every finished export into a folder your cloud app keeps in sync
+  (Google Drive, Dropbox, iCloud Drive). The cloud app does the uploading, so there's nothing to sign in to in the plug-in.</p>
+  <ol class="steps">
+    <li><strong>Install and sign in to the cloud app</strong>e.g. Google Drive for desktop or Dropbox on the Mac.</li>
+    <li><strong>Detected</strong>Pick a cloud folder the plug-in found, or press <span class="ui">Choose…</span> next to <span class="ui">Folder</span>.</li>
+    <li><strong>Subfolder</strong>Tokens <code>{date}</code> <code>{year}</code> <code>{orig}</code> work here, e.g. <code>Client/{date}</code>.</li>
+  </ol>
+  <div class="callout warn">
+    <span class="label">Limitation</span>
+    <p>The plug-in can only confirm the file was copied into the cloud folder. Uploading to the server is the cloud app's job; check its status there.</p>
+  </div>
+  <h3>Upload to an FTP / FTPS server</h3>
+  <p>Send every finished export straight to an FTP server: a client's server, your website, or a print lab.
+  Files are still kept in the export folder. Set it up in the Deliver section of the Export dialog or in the <span class="ui">Export Profiles…</span> window.</p>
+  <ol class="steps">
+    <li><strong>Tick Upload to an FTP server</strong></li>
+    <li><strong>Protocol</strong><code>FTPS (encrypted)</code> when the server supports it (also called "FTP over TLS"), otherwise <code>FTP</code>.</li>
+    <li><strong>Server, user name and password</strong>For example <code>ftp.example.com</code> (no <code>ftp://</code>). The password is kept in the macOS keychain: never in the profile, and never in the log.</li>
+    <li><strong>Remote folder</strong>For example <code>/{date}</code> or <code>/clients/{year}/{date}</code>. Missing folders are created.</li>
+    <li><strong>Press Test Connection</strong>Logs in and checks the folder without uploading anything.</li>
+  </ol>
+  <p>Advanced settings: <span class="ui">Port</span> (usually 21) and <span class="ui">Passive mode</span> (leave on unless the server says "active mode").</p>
+  <div class="callout tip">
+    <span class="label">While tethering</span>
+    <p>Auto-export uploads too. If an upload fails, no dialog pops up to interrupt the shoot: the message appears in the capture window's status line instead,
+    and the files are safe in the export folder. <strong>SFTP is not supported.</strong></p>
+  </div>
+</section>
+
+<section id="en-interval">
+  <h2><span class="num">12</span>Interval shooting</h2>
+  <p><strong>Camera</strong> tab → <span class="ui">Shutter</span>, choose <code>Fire automatically every N seconds</code>:</p>
+  <p><strong>First</strong> tick ☑ <span class="ui">Show advanced settings</span> on tab <span class="ui">1 · Camera</span>; this is an advanced setting.</p>
+<pre><code>Every: [10] seconds, [0] frames</code></pre>
+  <ul>
+    <li><strong>frames = 0</strong> means keep shooting until you press Stop.</li>
+    <li>The camera must be able to focus or it won't fire. <strong>Use MF (manual focus) for time-lapse.</strong></li>
+    <li>Each frame takes a few seconds to transfer. Too short an interval makes the timing drift.</li>
+  </ul>
+  <div class="callout tip">
+    <span class="label">Recommended</span>
+    <p>Set <strong>frames = 0</strong> and press <span class="ui">Stop Capture</span> yourself once you have enough frames.
+    In the current version, a frame limit combined with <span class="ui">Reconnect…</span> switched on may start a new series by itself.</p>
+  </div>
+  <p>The default is <code>Wait for me to press the shutter</code> (manual). If you don't change it, nothing is different.</p>
+</section>
+
+<section id="en-export">
+  <h2><span class="num">13</span>Regular export</h2>
+  <p>For photos already in the catalog:</p>
+  <ol class="steps">
+    <li><strong>Select photos</strong>in the Library.</li>
+    <li><strong>File → Export…</strong></li>
+    <li><strong>Export To</strong>Choose <code>Thaiymuan Production</code>.</li>
+    <li><strong>Profile</strong>The row at the top can <span class="ui">Load</span> / <span class="ui">Save</span> the settings as a profile.</li>
+  </ol>
+  <p>Lightroom's <strong>Export Location / File Naming / Watermarking / Post-Processing</strong> panels work as usual.
+  File Settings / Image Sizing / Sharpening / Metadata are replaced by the plug-in's own, so the same settings also drive auto-export.</p>
+  <div class="callout warn">
+    <span class="label">Don't watermark twice</span>
+    <p>If the plug-in's watermark is on, turn off Lightroom's own <span class="ui">Watermarking</span> panel, or photos will get two marks.</p>
+  </div>
+
+  <h3>Slideshow after export</h3>
+  <p>Tick <span class="ui">Show the photos as a slideshow when the export finishes</span>. Lightroom switches to the
+  <strong>Slideshow</strong> module with the exported photos selected; <strong>press Play yourself</strong>.</p>
+  <p class="path">The slideshow plays the originals in the catalog, not the exported JPEG files.</p>
+</section>
+
+<section id="en-troubleshoot">
+  <h2><span class="num">14</span>Troubleshooting</h2>
+  <p>Open <span class="path"><span class="ui">Library</span><span class="sep">→</span><span class="ui">Plug-in Extras</span><span class="sep">→</span><span class="ui">Camera Diagnostics…</span></span> It runs five checks in the order to fix them:
+  <strong>1</strong> gPhoto2 → <strong>2</strong> macOS camera service → <strong>3</strong> camera connected → <strong>4</strong> remote capture → <strong>5</strong> watermark helper.
+  Each shows ✓ / ! / ✕, what was found and <strong>how to fix it</strong>; the top line says "All good" or how many problems were found.
+  <span class="ui">Release Camera</span> frees the camera from macOS, and if it can't it shows the exact <code>sudo killall …</code> command.
+  <span class="ui">Save Report</span> saves the report to your Desktop. Versions and raw output are under "Show technical details".</p>
+
+  <h3>Camera doesn't appear when pressing Detect</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Cause</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td>gPhoto2 not installed</td><td class="wrap"><code>brew install gphoto2</code></td></tr>
+      <tr><td>macOS has claimed the camera</td><td class="wrap">Diagnostics → <span class="ui">Release Camera</span>, or run <code>sudo killall ptpcamerad</code></td></tr>
+      <tr><td>Camera asleep / off</td><td class="wrap">Turn it on and press Detect again</td></tr>
+      <tr><td>Charge-only USB-C cable</td><td class="wrap">Use a cable that carries data</td></tr>
+      <tr><td>Wrong USB mode</td><td class="wrap">See section <a href="#en-camera-setup">3</a></td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout tip">
+    <span class="label">Important</span>
+    <p>gPhoto2's error message tells you to quit “PTPCamera”, an old name that no longer exists on recent macOS.
+    The real process is <strong><code>ptpcamerad</code></strong>, so most advice online doesn't work.</p>
+  </div>
+
+  <h3>“Could not claim the USB device” (-53)</h3>
+  <p>A previous connection is still hanging on. In order:</p>
+  <ol>
+    <li><strong>Unplug the USB cable and plug it back in</strong> — fixes it almost every time</li>
+    <li>Turn the camera off and on</li>
+    <li>Quit Photos, Image Capture, Imaging Edge, EOS Utility</li>
+    <li><code>sudo killall ptpcamerad</code></li>
+  </ol>
+
+  <h3>Status says Live but no photos arrive</h3>
+  <ol>
+    <li>Check <strong>Still Img. Save Dest.</strong> on the camera is PC+Camera (Sony).</li>
+    <li>Camera tab → <span class="ui">Capture events</span>, switch to <code>Any new image (Sony)</code>.
+      Sony bodies need this; with other modes they deliver nothing even though everything looks normal.</li>
+    <li>Look in the log for a <code>new capture in spool</code> line.</li>
+  </ol>
+
+  <h3>Other problems</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Symptom</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td>Photos land in the folder but not in Lightroom</td><td class="wrap">Tick <span class="ui">Add captures to the catalog</span> on the On Import tab</td></tr>
+      <tr><td>Can't quit Lightroom</td><td class="wrap">The Tethered Capture window is still open; press <span class="ui">Close</span> first</td></tr>
+      <tr><td>No Plug-in Extras menu</td><td class="wrap">Wrong module; press <kbd>G</kbd> to return to Library</td></tr>
+      <tr><td>Plug-in not listed</td><td class="wrap"><span class="ui">File → Plug-in Manager → Add</span>, then choose <code>ThaiymuanProduction.lrplugin</code></td></tr>
+      <tr><td>“The watermark helper has not been built”</td><td class="wrap">Plug-in Manager → <span class="ui">Build Watermark Helper</span> (needs <code>xcode-select --install</code>)</td></tr>
+      <tr><td>Camera still busy after quitting Lightroom</td><td class="wrap">Always press <span class="ui">Stop Capture</span> and <span class="ui">Close</span> before quitting Lightroom. If it's still stuck, unplug and replug the USB cable.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>FTP (Wi-Fi and uploads)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Symptom</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td>The camera can't connect over FTP</td><td class="wrap">Check both are on the same Wi-Fi and the IP in the camera matches the window (it can change when you join a new network). Check <span class="ui">System Settings → Network → Firewall</span> allows <code>tsftpd</code>.</td></tr>
+      <tr><td>The camera reports a login error</td><td class="wrap">Re-type the user name and password exactly as shown. After <span class="ui">New Password</span>, the camera always needs the new one.</td></tr>
+      <tr><td>"Port 2121 is already in use"</td><td class="wrap">Choose another port in the advanced settings (e.g. 2122) and enter the same port in the camera.</td></tr>
+      <tr><td>Connected, but no photos arrive</td><td class="wrap">Turn on automatic transfer in the camera, and check that Directory is <code>/</code> or blank.</td></tr>
+      <tr><td>"The FTP server (tsftpd) is missing"</td><td class="wrap">Reinstall the plug-in, or Plug-in Manager → <span class="ui">Build Watermark Helper</span> (rebuilds the FTP server too).</td></tr>
+      <tr><td>An upload failed</td><td class="wrap">Read the error (it names the cause), then press <span class="ui">Test Connection</span>. The files are still in the export folder.</td></tr>
+      <tr><td>FTPS: certificate could not be verified</td><td class="wrap">Use the exact server name your host gave you (not an IP address), or ask them about the certificate.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Log file</h3>
+<pre><code>~/Library/Logs/Thaiymuan Production/thaiymuan-production.log</code></pre>
+  <p>Press <span class="ui">Open Log</span> in the Tethered Capture window. When reporting a problem, attaching this file helps a lot.</p>
+</section>
+
+<section id="en-reference">
+  <h2><span class="num">15</span>Quick reference</h2>
+  <h3>Normal workflow</h3>
+  <ol class="quick-flow">
+    <li>Turn on camera, plug in USB</li>
+    <li>Library → Tethered Capture</li>
+    <li>Tab 1 · Camera → wait for the camera</li>
+    <li>Tab 2 · Files → Destination</li>
+    <li>Tab 4 · Auto-Export (optional)</li>
+    <li>Checklist 5 shows no ✕</li>
+    <li>Start Capture, then shoot</li>
+    <li>Stop Capture, then Close</li>
+  </ol>
+
+  <h3>Where files go</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>What</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td>Original files</td><td class="wrap">Destination folder + Subfolder</td></tr>
+      <tr><td>Exported files</td><td class="wrap">The Export to folder</td></tr>
+      <tr><td>Temporary spool</td><td class="wrap"><code>&lt;Destination&gt;/.tetherstudio/spool</code> (cleaned automatically)</td></tr>
+      <tr><td>FTP inbox (Wi-Fi)</td><td class="wrap"><code>&lt;Destination&gt;/FTP Inbox</code> (photos are moved out at once)</td></tr>
+      <tr><td>FTP server log</td><td class="wrap"><code>&lt;Destination&gt;/.tetherstudio/tsftpd.log</code></td></tr>
+      <tr><td>Log</td><td class="wrap"><code>~/Library/Logs/Thaiymuan Production/thaiymuan-production.log</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sony bodies that tether directly over USB</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Body</th><th>Direct USB</th></tr></thead>
+    <tbody>
+      <tr><td class="wrap">A7 IV, A7R V, A1 II, A6700, FX3</td><td class="wrap"><strong>Yes</strong></td></tr>
+      <tr><td class="wrap">A1, A9 III, A7S III</td><td class="wrap">Likely, unverified</td></tr>
+      <tr><td class="wrap">A7C II, A7CR, ZV-E1, FX30</td><td class="wrap">No — use <a href="#en-watched-folder">Watched folder</a></td></tr>
+    </tbody>
+  </table></div>
+  <p>For bodies that can't tether directly, use Imaging Edge Desktop with Watched folder mode. Everything works the same: naming, presets and auto-export.
+  Always test with your own camera before a paid job.</p>
+</section>
+
+<footer>
+  Copyright © 2026 Thaiymuan Production · Developed by Kongjai Sayavong ·
+  <a href="https://thaiymuan.com">thaiymuan.com</a>
+</footer>
+</div>
+
+</main>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var LANGS = ['lo', 'th', 'en'];
+  var TITLES = {
+    lo: 'ຄູ່ມື Thaiymuan Production',
+    th: 'คู่มือ Thaiymuan Production',
+    en: 'Thaiymuan Production Manual'
+  };
+  function store(key, value) { try { localStorage.setItem(key, value); } catch (e) {} }
+  function load(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+
+  // ---- theme ----
+  var savedTheme = load('tp-manual-theme');
+  if (savedTheme === 'light' || savedTheme === 'dark') root.setAttribute('data-theme', savedTheme);
+  document.getElementById('themeToggle').addEventListener('click', function () {
+    var current = root.getAttribute('data-theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    store('tp-manual-theme', next);
+  });
+
+  // ---- language ----
+  function currentSectionKey() {
+    var lang = root.getAttribute('data-ui');
+    var sections = document.querySelectorAll('.doc[data-lang="' + lang + '"] section[id]');
+    var key = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= window.innerHeight * 0.3) key = sections[i].id.slice(3);
+    }
+    return key;
+  }
+  function setLang(lang, keepPlace) {
+    if (LANGS.indexOf(lang) < 0) lang = 'lo';
+    var key = keepPlace ? currentSectionKey() : null;
+    root.setAttribute('data-ui', lang);
+    root.setAttribute('lang', lang);
+    document.title = TITLES[lang];
+    var buttons = document.querySelectorAll('[data-set-lang]');
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute('aria-pressed', buttons[i].getAttribute('data-set-lang') === lang ? 'true' : 'false');
+    }
+    if (key) {
+      var target = document.getElementById(lang + '-' + key);
+      if (target) target.scrollIntoView({ behavior: 'instant', block: 'start' });
+    } else if (keepPlace) {
+      window.scrollTo(0, 0);
+    }
+    refreshActive();
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-set-lang]');
+    if (!b) return;
+    var lang = b.getAttribute('data-set-lang');
+    store('tp-manual-lang', lang);
+    setLang(lang, true);
+  });
+
+  function initialLang() {
+    var m = location.search.match(/[?&]lang=(lo|th|en)/);
+    if (m) return m[1];
+    var h = location.hash.match(/^#(lo|th|en)-/);
+    if (h) return h[1];
+    var saved = load('tp-manual-lang');
+    if (LANGS.indexOf(saved) >= 0) return saved;
+    var nav = (navigator.language || '').toLowerCase();
+    if (nav.indexOf('th') === 0) return 'th';
+    if (nav.indexOf('en') === 0) return 'en';
+    return 'lo';
+  }
+
+  // ---- mobile contents drawer ----
+  var toc = document.getElementById('toc');
+  var button = document.getElementById('tocButton');
+  function setOpen(open) {
+    toc.classList.toggle('open', open);
+    button.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  button.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!toc.classList.contains('open')); });
+  toc.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('click', function (e) {
+    if (toc.classList.contains('open') && !toc.contains(e.target)) setOpen(false);
+  });
+
+  // ---- highlight the section being read ----
+  var links = Array.prototype.slice.call(toc.querySelectorAll('a[href^="#"]'));
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+  function mark(id) {
+    links.forEach(function (a) { a.classList.remove('active'); });
+    if (byId[id]) byId[id].classList.add('active');
+  }
+  function refreshActive() {
+    var lang = root.getAttribute('data-ui');
+    var key = currentSectionKey();
+    mark(key ? lang + '-' + key : null);
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { ticking = false; refreshActive(); });
+  }, { passive: true });
+
+  setLang(initialLang(), false);
+  if (location.hash) {
+    var t = document.getElementById(location.hash.slice(1));
+    if (t) t.scrollIntoView();
+  }
+})();
+</script>
+</body>
+</html>
